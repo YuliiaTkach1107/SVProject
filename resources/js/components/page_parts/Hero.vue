@@ -9,8 +9,8 @@
       <h1><span class="text-[var(--text-primary)]">Світлана</span><br/><span class="!text-[var(--text-secondary)]">Дармостук</span></h1>
       <p class='w-[90%] mb-10 lg:w-100 lg:mb-10'>Мені дуже важливо допомагати людям та сім'ям досягати особистісного зростання та благополуччя.</p>
       <div class="flex w-full flex-col lg:w-[120%] lg:flex-row lg:gap-10 gap-4 lg:mb-0">
-        <a href='#' class="flex w-full justify-center items-center text-center gap-3 text-[var(--text-button-primary)] bg-[var(--bg-button-primary)] rounded-full lg:w-auto lg:justify-start lg:text-left"> Записатись на консультацію <MoveRight aria-hidden="true" :stroke-width="2" class="icon hidden lg:block size-5 shrink-0" /></a>
-        <a href='#about_section' class="flex w-full justify-center items-center text-center text-[var(--text-button-secondary)] bg-[var(--bg-button-secondary) border-1 border-[var(--text-button-secondary)] lg:w-fit lg:justify-start lg:text-left">Дивитись більше</a>
+        <a href='#' class="hero-button hero-button-primary flex w-full justify-center items-center text-center gap-3 text-[var(--text-button-primary)] bg-[var(--bg-button-primary)] rounded-full lg:w-auto lg:justify-start lg:text-left"> Записатись на консультацію <MoveRight aria-hidden="true" :stroke-width="2" class="icon hidden lg:block size-5 shrink-0" /></a>
+        <a href='#about_section' class="hero-button hero-button-secondary flex w-full justify-center items-center text-center text-[var(--text-button-secondary)] border border-[var(--text-button-secondary)] lg:w-fit lg:justify-start lg:text-left">Дивитись більше</a>
       </div>
       <div class="hidden lg:block hero-bottom mt-26">
         <div class="hidden lg:block w-50 h-[1px] rounded-full bg-[var(--bg-button-primary)]"></div>

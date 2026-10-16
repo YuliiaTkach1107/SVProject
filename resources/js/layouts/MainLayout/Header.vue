@@ -11,19 +11,43 @@ watch(mobileMenuOpen, (value) => {
     document.body.classList.toggle("overflow-hidden", value);
 });
 const isHero = ref(true)
+const activeSection = ref('')
+
+const sectionIds = [
+  'about_section',
+  'services_section',
+  'practices_section',
+  'contact_section',
+]
+const scrollToSection = (id) => {
+  document.getElementById(id)?.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start',
+  })
+}
 const handleScroll = () => {
   const hero = document.getElementById('hero_section');
-  if(!hero) return
-  isHero.value = window.scrollY <= hero.offsetHeight - window.innerHeight * 0.2
- }
+  if (hero) {
+    isHero.value =
+      hero.getBoundingClientRect().bottom > window.innerHeight * 0.2
+  }
+
+  const activationLine = window.innerHeight * 0.35
+  const currentSection = sectionIds
+    .map((id) => document.getElementById(id))
+    .filter((section) => section && section.getBoundingClientRect().top <= activationLine)
+    .at(-1)
+
+  activeSection.value = currentSection?.id ?? ''
+}
+
 onMounted(()=>{
+    handleScroll()
     window.addEventListener('scroll', handleScroll)
 })
 onUnmounted(()=>{
   window.removeEventListener('scroll',handleScroll)
 })
-
-const page = usePage()
 </script>
 <template>
   <header class="fixed left-0 top-0 z-50 w-full">
@@ -38,16 +62,16 @@ const page = usePage()
          <nav aria-label="Головне меню сайту">
             <ul class="hidden lg:flex w-full items-center justify-center gap-8">
                 <li>
-                    <Link href="#about_section" class="menu_link" :class="{ 'is_current': $page.url.endsWith('/#about_section') }"> Про мене </Link>
+                    <a href="#about_section" class="menu_link" :class="{ 'is_current': activeSection === 'about_section' }"   @click.prevent="scrollToSection('about_section')"> Про мене </a>
                 </li>
                 <li>
-                    <Link href="#services_section" class="menu_link" :class="{ 'is_current': $page.url.endsWith('/#services_section') }"> Послуги </Link>
+                    <a href="#services_section" class="menu_link" :class="{ 'is_current': activeSection === 'services_section' }" @click.prevent="scrollToSection('services_section')" > Послуги </a>
                 </li>
                 <li>
-                    <Link href="#practices_section" class="menu_link" :class="{ 'is_current': $page.url.endsWith('/#practices_section') }"> Простір практик </Link>
+                    <a href="#practices_section" class="menu_link" :class="{ 'is_current': activeSection === 'practices_section' }" @click.prevent="scrollToSection('practices_section')"> Простір практик </a>
                 </li>
                 <li>
-                    <Link href="#contact_section" class="menu_link" :class="{ 'is_current': $page.url.endsWith('/#contact_section') }"> Контакти </Link>
+                    <a href="#contact_section" class="menu_link" :class="{ 'is_current': activeSection === 'contact_section' }" @click.prevent="scrollToSection('contact_section')"> Контакти </a>
                 </li>
             </ul>
          </nav>
@@ -58,26 +82,26 @@ const page = usePage()
             <span :class="[ 'block h-0.5 w-full bg-[#463028] transform transition-all duration-300 ease-in-out origin-center rounded-full', mobileMenuOpen ? '-rotate-45 -translate-y-2' : '']"></span>
          </button>
          <!-- Button -->
-         <a href="#" class="last_menu_link" aria-label="Записатись на консультацію">Записатись онлайн</a>
+         <a href="#" class="last_menu_link menu-cta-button" aria-label="Записатись на консультацію">Записатись онлайн</a>
       </div>
       <!-- Mobile Menu -->
       <transition name="slide-fade">
          <div id="mobile-menu" v-if="mobileMenuOpen" role="dialog" aria-modal="true" aria-label="Мобільне меню" @click="closeMobileMenu" :class="['lg:hidden w-full min-h-screen bg-[var(--bg-menu)] px-6 pt-28 overscroll-y-none', isHero ? 'bg-[var(--bg-menu)]' : 'bg-white shadow-sm shadow-[var(--circle-tertiary)]']">
             <ul class="flex flex-col gap-6 text-center">
                <li>
-                    <Link href="#about_section" class="menu_link" :class="{ 'is_current': $page.url.endsWith('/#about_section') }"> Про мене </Link>
+                    <a href="#about_section" class="menu_link" :class="{ 'is_current': activeSection === 'about_section' }" @click.prevent="scrollToSection('about_section')"> Про мене </a>
                 </li>
                 <li>
-                    <Link href="#services_section" class="menu_link" :class="{ 'is_current': $page.url.endsWith('/#services_section') }"> Послуги </Link>
+                    <a href="#services_section" class="menu_link" :class="{ 'is_current': activeSection === 'services_section' }" @click.prevent="scrollToSection('services_section')"> Послуги </a>
                 </li>
                 <li>
-                    <Link href="#practices_section" class="menu_link" :class="{ 'is_current': $page.url.endsWith('/#practices_section') }"> Простір практик </Link>
+                    <a href="#practices_section" class="menu_link" :class="{ 'is_current': activeSection === 'practices_section' }" @click.prevent="scrollToSection('practices_section')"> Простір практик </a>
                 </li>
                 <li>
-                    <Link href="#contact_section" class="menu_link" :class="{ 'is_current': $page.url.endsWith('/#contact_section') }"> Контакти </Link>
+                    <a href="#contact_section" class="menu_link" :class="{ 'is_current': activeSection === 'contact_section' }" @click.prevent="scrollToSection('contact_section')"> Контакти </a>
                 </li>
                 <li>
-                  <a href="#" class="burger_menu_link" aria-label="Записатись на консультацію">Записатись онлайн</a>
+                  <a href="#" class="burger_menu_link menu-cta-button" aria-label="Записатись на консультацію">Записатись онлайн</a>
                 </li>
             </ul>
          </div>
