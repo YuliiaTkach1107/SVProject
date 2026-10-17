@@ -30,7 +30,7 @@
     --bg-card-gray:#EAE8E6;
     --bg-card-rose:#F7E4E5;
     --bg-card-peach:#FBEAE7;
-    --bg-footer:#ffffff;
+    --bg-footer:rgb(70, 48, 40);
     
     /*Decoration*/
     --circle-primary:#F7DED9;
@@ -58,13 +58,13 @@ section{
 #hero_section{
     @apply !py-0;
 }
-h1 span, h2 span, h2{
+h1 span, h1, h2 span, h2{
   font-family: var(--font-heading);
 }
 h1 span, h1{
     @apply text-4xl md:text-5xl lg:text-7xl mt-2 md:mt-4 mb-4 md:mb-8 font-extralight;
 }
-h2, h2 span{
+h2, h2 span, h1.booking{
     @apply text-2xl md:text-3xl lg:text-4xl mt-4 mb-4 lg:mt-4 lg:mb-6 font-extralight;
 }
 h3{
@@ -78,7 +78,7 @@ h4{
 nav li a{
     font-family: var(--font-body);
 }
-span,a{
+span,a, button{
     font-family: var(--font-accent);
 }
 @layer base {
@@ -119,24 +119,31 @@ a.logo {
     display: inline-flex;
 }
 a.menu_link, a.footer_link{
-    @apply text-base tracking-[0.03em] text-[var(--text-primary)] cursor-pointer transition-all duration-200 ease-in-out hover:pb-1 hover:border-b-[1px] hover:border-b-[var(--border-secondary)];
+    @apply text-base tracking-[0.03em] cursor-pointer transition-all duration-200 ease-in-out hover:pb-1 hover:border-b-[1px] hover:border-b-[var(--border-secondary)];
+}
+a.menu_link{
+    @apply text-[var(--text-primary)];
 }
 a.footer_link{
     font-family: var(--font-body);
-    @apply font-light;
+    @apply font-light text-white transition-all duration-200 ease-in-out hover:pb-1 hover:border-b-[1px] hover:border-b-white;
 }
 a.menu_link.is_current {
     @apply pb-1 border-b-[1px] border-b-[var(--border-secondary)];
 }
-
+a.footer_link:focus-visible, a.footer-icon:focus-visible, footer a.logo:focus-visible{
+    outline: 2px solid white;
+    outline-offset: 4px;
+}
 #hero_section a.hero-button,
-a.menu-cta-button {
+a.menu-cta-button, a.booking_button {
     transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease, transform 150ms ease;
 }
 
 #hero_section a.hero-button-primary:hover,
 #services_section a:hover,
-a.menu-cta-button:hover {
+a.menu-cta-button:hover,
+a.booking_button:hover {
     @apply cursor-pointer;
     background-color: var(--text-secondary);
 }
@@ -288,10 +295,15 @@ footer h2{
 footer a{
     @apply shadow-none rounded-none p-0;
 }
-footer .footer-icon svg{
-    @apply block w-5 h-5 mr-2 md:w-6 md:h-6;
+footer a.footer-icon{
+    display: inline-flex;
 }
-
+footer .footer-icon svg{
+    @apply block w-5 h-5 mr-2 md:w-6 md:h-6 text-white;
+}
+button:disabled{
+    @apply opacity-70 cursor-not-allowed;
+}
 @media (max-width: 380px) {
     #hero_section {
         height: 100svh;

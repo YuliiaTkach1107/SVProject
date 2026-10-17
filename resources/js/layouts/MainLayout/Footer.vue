@@ -41,11 +41,11 @@ const contactDetails: ContactDetailsData[] = [
 <template>
     <footer class="relative w-full bg-[var(--bg-footer)] px-6 py-8 sm:px-8 lg:px-15">
         <div class="container-details mx-auto grid w-full max-w-[1400px] grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-10">
-            <div class="logo_info flex flex-col items-start gap-4 w-[]">
+            <div class="logo_info flex flex-col items-start gap-4">
                 <Link href="/" class="logo" aria-label="Повернутися на головну сторінку">
-                    <img src="/images/logo/Logo.png" alt="Логотип сайту" class="w-30 py-2 md:w-36" />
+                    <img src="/images/logo/Logo_light.png" alt="Логотип сайту" class="w-30 py-2 md:w-40" />
                 </Link>
-                <p class="w-[80%]">Поруч із тобою на шляху до внутрішньої гармонії.</p>
+                <p class="w-[80%] !text-white">Поруч із тобою на шляху до внутрішньої гармонії.</p>
             </div>
 
             <div class="quick_links border-t border-[var(--border-secondary)] pt-6 lg:border-t-0 lg:pt-0">
@@ -62,13 +62,13 @@ const contactDetails: ContactDetailsData[] = [
 
             <div class="contact_details flex flex-col gap-6 border-t border-[var(--border-secondary)] pt-6 lg:col-span-1 lg:justify-center lg:border-t-0 lg:pt-0">
                 <div class="contacts">
-                    <h2>Контакти</h2>
+                    <h2 class="!text-white">Контакти</h2>
                     <div v-for="detail in contactDetails" :key="detail.id">
                         <a v-if="detail.type === 'contact'" :href="detail.url" class="footer_link">{{ detail.contact_detail }}</a>
                     </div>
                 </div>
                 <div class="social_media">
-                    <h2>Соціальні мережі</h2>
+                    <h2 class="!text-white">Соціальні мережі</h2>
                     <div class="flex items-center gap-2">
                         <div v-for="detail in contactDetails" :key="detail.id">
                             <a
@@ -86,10 +86,10 @@ const contactDetails: ContactDetailsData[] = [
             </div>
         </div>
 
-        <div class="mx-auto my-8 h-px w-full max-w-[1400px] bg-[var(--text-secondary)]"></div>
+        <div class="mx-auto my-8 h-px w-full max-w-[1400px] bg-white"></div>
 
         <div class="container-bottom mx-auto mb-4 py-2 flex w-full max-w-[1400px] flex-col items-center gap-4 text-center lg:flex-row lg:justify-between lg:text-left">
-            <p>© {{ currentYear }} Світлана Дармостук · Практичний психолог · Київ</p>
+            <p class="!text-white">© {{ currentYear }} Світлана Дармостук · Практичний психолог · Київ</p>
             <div class="flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-5 sm:gap-y-2 lg:justify-end">
                 <Link href="#" class="footer_link">Політика конфіденційності</Link>
                 <Link href="#" class="footer_link">Угода користувача</Link>

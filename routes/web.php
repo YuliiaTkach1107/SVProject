@@ -1,12 +1,13 @@
 <?php
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-
-
 Route::get('/', function () {
     return Inertia::render('HomePage');
 })->name('home');
+
+Route::get('/booking', function () {
+    return Inertia::render('Booking');
+})->name('booking');
 
 // Route::inertia('/', 'Welcome')->name('home');
 
