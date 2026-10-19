@@ -1,89 +1,97 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&family=Jost:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 
 :root {
-
     /* Fonts */
 
-    --font-heading: "Cormorant", serif;
-    --font-body: "Jost", sans-serif;
-    --font-accent: "Poppins", sans-serif;
-    --font-menu: "Lora", serif;
+    --font-heading: 'Cormorant', serif;
+    --font-body: 'Jost', sans-serif;
+    --font-accent: 'Poppins', sans-serif;
+    --font-menu: 'Lora', serif;
 
     /* Colors */
 
     /*Text*/
-    --text-primary:#463028;
-    --text-secondary:#6B5D56;
-    --text-button-primary:#FFFFFF;
-    --text-button-secondary:#80716A;
+    --text-primary: #463028;
+    --text-secondary: #6b5d56;
+    --text-button-primary: #ffffff;
+    --text-button-secondary: #80716a;
 
     /*Backgrounds*/
-    --bg-primary:#F7DED9;
-    --bg-secondary:rgba(160, 143, 135, 0.1);
-    --bg-menu:#F7F1EF;
-    --bg-basic:#FFFFFF;
-    --bg-button-primary:#80716a;
-    --bg-button-secondary:#FFFFFF;
-    --bg-card-pink:#FAEEED;
-    --bg-card-gray:#EAE8E6;
-    --bg-card-rose:#F7E4E5;
-    --bg-card-peach:#FBEAE7;
-    --bg-footer:#ffffff;
-    
+    --bg-primary: #f7ded9;
+    --bg-secondary: rgba(160, 143, 135, 0.1);
+    --bg-menu: #f7f1ef;
+    --bg-basic: #ffffff;
+    --bg-button-primary: #80716a;
+    --bg-button-secondary: #ffffff;
+    --bg-card-pink: #faeeed;
+    --bg-card-gray: #eae8e6;
+    --bg-card-rose: #f7e4e5;
+    --bg-card-peach: #fbeae7;
+    --bg-footer: rgb(70, 48, 40);
+
     /*Decoration*/
-    --circle-primary:#F7DED9;
-    --circle-secondary:#E4AAA9;
-    --circle-tertiary:#A08F87;
-    --circle-quaternary:#F7DED9;
+    --circle-primary: #f7ded9;
+    --circle-secondary: #e4aaa9;
+    --circle-tertiary: #a08f87;
+    --circle-quaternary: #f7ded9;
 
     /*Borders*/
-    --border-primary:#463028;
-    --border-secondary:#6B5D56;
+    --border-primary: #463028;
+    --border-secondary: #6b5d56;
 
     /*Cards*/
-    --icon-color:#A08F86;
+    --icon-color: #a08f86;
 }
 
-html, body{
+html,
+body {
     overscroll-behavior-y: none;
     -webkit-font-smoothing: auto;
     -moz-osx-font-smoothing: auto;
-    @apply scroll-smooth; 
+    @apply scroll-smooth;
 }
-section{
-    @apply px-8 lg:px-20 py-10 lg:py-15 scroll-mt-20;
+section {
+    @apply scroll-mt-20 px-8 py-10 lg:px-20 lg:py-15;
 }
-#hero_section{
+#hero_section {
     @apply !py-0;
 }
-h1 span, h2 span, h2{
-  font-family: var(--font-heading);
+h1 span,
+h1,
+h2 span,
+h2 {
+    font-family: var(--font-heading);
 }
-h1 span, h1{
-    @apply text-4xl md:text-5xl lg:text-7xl mt-2 md:mt-4 mb-4 md:mb-8 font-extralight;
+h1 span,
+h1 {
+    @apply mt-2 mb-4 text-4xl font-extralight md:mt-4 md:mb-8 md:text-5xl lg:text-7xl;
 }
-h2, h2 span{
-    @apply text-2xl md:text-3xl lg:text-4xl mt-4 mb-4 lg:mt-4 lg:mb-6 font-extralight;
+h2,
+h2 span,
+h1.booking {
+    @apply mt-4 mb-4 text-2xl font-extralight md:text-3xl lg:mt-4 lg:mb-6 lg:text-4xl;
 }
-h3{
+h3 {
     font-family: var(--font-body);
-    @apply text-lg lg:text-xl text-[var(--text-primary)];
+    @apply text-lg text-[var(--text-primary)] lg:text-xl;
 }
-h4{
+h4 {
     font-family: var(--font-body);
     @apply text-lg text-[var(--text-primary)];
 }
-nav li a{
+nav li a {
     font-family: var(--font-body);
 }
-span,a{
+span,
+a,
+button {
     font-family: var(--font-accent);
 }
 @layer base {
     span {
-        @apply text-xs md:text-sm lg:text-base tracking-[0.03em] text-[var(--text-secondary)];
+        @apply text-xs tracking-[0.03em] text-[var(--text-secondary)] md:text-sm lg:text-base;
     }
 }
 /* span.hero_name, span.about_title_1{
@@ -92,59 +100,74 @@ span,a{
 span.hero_surname, span.about_title_2{
     @apply text-[var(--text-secondary)];
 } */
-p{
+p {
     font-family: var(--font-body);
-    font-weight:200;
-    @apply text-base md:text-lg lg:text-lg tracking-[0.03em] text-[var(--text-primary)];
+    font-weight: 200;
+    @apply text-base tracking-[0.03em] text-[var(--text-primary)] md:text-lg lg:text-lg;
 }
-.hero-bottom p{
+.hero-bottom p {
     @apply text-xs text-[var(--text-secondary)];
 }
-.hero-bottom li{
+.hero-bottom li {
     @apply flex items-center gap-2;
 }
 .hero-bottom {
     @apply mb-2;
 }
-a{
-    @apply text-sm md:text-base lg:text-base tracking-[0.03em] px-6 py-3 rounded-full shadow-sm;
+a {
+    @apply rounded-full px-6 py-3 text-sm tracking-[0.03em] shadow-sm md:text-base lg:text-base;
 }
-a.menu_link, a.logo{
-    @apply text-base tracking-[0.03em] rounded-none shadow-none py-0 px-0;
+a.menu_link,
+a.logo {
+    @apply rounded-none px-0 py-0 text-base tracking-[0.03em] shadow-none;
 }
 a.logo {
     display: inline-flex;
 }
-#services_section a{
+#services_section a {
     display: inline-flex;
 }
-a.menu_link, a.footer_link{
-    @apply text-base tracking-[0.03em] text-[var(--text-primary)] cursor-pointer transition-all duration-200 ease-in-out hover:pb-1 hover:border-b-[1px] hover:border-b-[var(--border-secondary)];
+a.menu_link,
+a.footer_link {
+    @apply cursor-pointer text-base tracking-[0.03em] transition-all duration-200 ease-in-out hover:border-b-[1px] hover:border-b-[var(--border-secondary)] hover:pb-1;
 }
-a.footer_link{
+a.menu_link {
+    @apply text-[var(--text-primary)];
+}
+a.footer_link {
     font-family: var(--font-body);
-    @apply font-light;
+    @apply font-light text-white transition-all duration-200 ease-in-out hover:border-b-[1px] hover:border-b-white hover:pb-1;
 }
 a.menu_link.is_current {
-    @apply pb-1 border-b-[1px] border-b-[var(--border-secondary)];
+    @apply border-b-[1px] border-b-[var(--border-secondary)] pb-1;
 }
-
+a.footer_link:focus-visible,
+a.footer-icon:focus-visible,
+footer a.logo:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 4px;
+}
 #hero_section a.hero-button,
-a.menu-cta-button {
-    transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease, transform 150ms ease;
+a.menu-cta-button,
+a.booking_button {
+    transition:
+        background-color 200ms ease,
+        border-color 200ms ease,
+        color 200ms ease,
+        transform 150ms ease;
 }
 
 #hero_section a.hero-button-primary:hover,
 #services_section a:hover,
-a.menu-cta-button:hover {
+a.menu-cta-button:hover,
+a.booking_button:hover {
     @apply cursor-pointer;
     background-color: var(--text-secondary);
 }
 
 #hero_section a.hero-button-primary:active,
 #services_section a:active,
-a.menu-cta-button:active
-{
+a.menu-cta-button:active {
     background-color: var(--text-primary);
     transform: scale(0.98);
 }
@@ -173,24 +196,32 @@ textarea:focus-visible {
     }
 }
 
-.practice-card{
-    @apply w-full h-full;
+.practice-card {
+    @apply h-full w-full;
 }
 
 .practice-card {
-    @apply bg-[var(--card-background)] rounded-lg shadow-md p-6;
+    @apply rounded-lg bg-[var(--card-background)] p-6 shadow-md;
 }
 
-.practice-card--pink { --card-background: var(--bg-card-pink); }
-.practice-card--gray { --card-background: var(--bg-card-gray); }
-.practice-card--rose { --card-background: var(--bg-card-rose); }
-.practice-card--peach { --card-background: var(--bg-card-peach); }
+.practice-card--pink {
+    --card-background: var(--bg-card-pink);
+}
+.practice-card--gray {
+    --card-background: var(--bg-card-gray);
+}
+.practice-card--rose {
+    --card-background: var(--bg-card-rose);
+}
+.practice-card--peach {
+    --card-background: var(--bg-card-peach);
+}
 
-h3.practice-title{
+h3.practice-title {
     font-family: var(--font-heading);
     @apply tracking-[0.03em];
 }
-p.practice-description{
+p.practice-description {
     @apply text-base;
 }
 #services_section .service-summary {
@@ -206,92 +237,98 @@ p.practice-description{
 }
 
 .mySwiper .swiper-pagination-bullet {
-    @apply bg-[var(--text-secondary)] mt-5;
+    @apply mt-5 bg-[var(--text-secondary)];
 }
-.practice-icon{
-    @apply text-3xl text-[var(--icon-color)] bg-white/70 w-14 h-14 rounded-full flex items-center justify-center;
+.practice-icon {
+    @apply flex h-14 w-14 items-center justify-center rounded-full bg-white/70 text-3xl text-[var(--icon-color)];
 }
-.practice-duration{
-    @apply mt-4 mb-2 text-[var(--text-secondary)] tracking-[0.03em] text-base font-medium;
+.practice-duration {
+    @apply mt-4 mb-2 text-base font-medium tracking-[0.03em] text-[var(--text-secondary)];
 }
-.icon{
-    @apply text-[var(--text-button-primary)] m-auto;
+.icon {
+    @apply m-auto text-[var(--text-button-primary)];
 }
 .banner {
     position: relative;
-    @apply rounded-2xl bg-cover bg-center bg-no-repeat p-8 flex flex-col items-center justify-center h-70 gap-4 overflow-hidden text-center;
+    @apply flex h-70 flex-col items-center justify-center gap-4 overflow-hidden rounded-2xl bg-cover bg-center bg-no-repeat p-8 text-center;
 }
 .banner > * {
     position: relative;
     z-index: 1;
 }
-.banner h3{
+.banner h3 {
     font-family: var(--font-heading);
-    @apply text-2xl md:text-3xl tracking-[0.03em] !font-extralight;
+    @apply text-2xl !font-extralight tracking-[0.03em] md:text-3xl;
 }
-.banner p{
+.banner p {
     @apply text-base md:text-lg;
 }
-.banner p, 
+.banner p,
 .banner h3 {
     @apply text-white;
 }
-.contact_details .contact-icon{
-    @apply w-8 h-8 md:w-11 md:h-11 flex items-center justify-center rounded-full border border-[var(--border-primary)] bg-transparent text-[var(--icon-color)];
+.contact_details .contact-icon {
+    @apply flex h-8 w-8 items-center justify-center rounded-full border border-[var(--border-primary)] bg-transparent text-[var(--icon-color)] md:h-11 md:w-11;
 }
-.contact_details .contact-icon svg{
-    @apply block w-5 h-5 md:w-6 md:h-6;
+.contact_details .contact-icon svg {
+    @apply block h-5 w-5 md:h-6 md:w-6;
 }
-.contact_details .contact-icon svg path:not([fill="none"]) {
+.contact_details .contact-icon svg path:not([fill='none']) {
     fill: var(--text-primary);
 }
-a.contact_link{
+a.contact_link {
     font-family: var(--font-body);
-    @apply text-base md:text-lg text-[var(--text-primary)] tracking-[0.03em] ml-4 shadow-none font-light !rounded-none !px-0 !py-0;
+    @apply ml-4 !rounded-none !px-0 !py-0 text-base font-light tracking-[0.03em] text-[var(--text-primary)] shadow-none md:text-lg;
 }
-.field{
+.field {
     @apply flex flex-col;
 }
-input, textarea{
-    @apply border border-[var(--border-primary)] rounded-lg px-4 py-2 text-[var(--text-primary)] tracking-[0.03em] text-base md:text-lg;
+input,
+textarea {
+    @apply rounded-lg border border-[var(--border-primary)] px-4 py-2 text-base tracking-[0.03em] text-[var(--text-primary)] md:text-lg;
 }
-label{
+label {
     font-family: var(--font-body);
-    @apply text-base md:text-lg text-[var(--text-primary)] mb-2 tracking-[0.03em];
+    @apply mb-2 text-base tracking-[0.03em] text-[var(--text-primary)] md:text-lg;
 }
 input::placeholder,
 textarea::placeholder {
-    @apply text-base md:text-lg text-[var(--text-secondary)] tracking-[0.03em];
-
+    @apply text-base tracking-[0.03em] text-[var(--text-secondary)] md:text-lg;
 }
-button[type="submit"]{
-    @apply bg-[var(--bg-button-primary)] text-[var(--text-button-primary)] tracking-[0.03em] px-4 py-2 rounded-full shadow-sm;
+button[type='submit'] {
+    @apply rounded-full bg-[var(--bg-button-primary)] px-4 py-2 tracking-[0.03em] text-[var(--text-button-primary)] shadow-sm;
 }
 .last_menu_link {
-    @apply hidden lg:flex items-center text-[var(--text-button-primary)] bg-[var(--bg-button-primary)] font-(family-name:--font-body) tracking-[0.03em] !rounded-full h-fit my-auto;
+    @apply my-auto hidden h-fit items-center !rounded-full bg-[var(--bg-button-primary)] font-(family-name:--font-body) tracking-[0.03em] text-[var(--text-button-primary)] lg:flex;
 }
 .burger_menu_link {
-    @apply flex lg:hidden items-center justify-center text-[var(--text-button-primary)] bg-[var(--bg-button-primary)] font-(family-name:--font-body) tracking-[0.03em] !rounded-full h-fit my-auto;
+    @apply my-auto flex h-fit items-center justify-center !rounded-full bg-[var(--bg-button-primary)] font-(family-name:--font-body) tracking-[0.03em] text-[var(--text-button-primary)] lg:hidden;
 }
-.last_footer_menu_link{
+.last_footer_menu_link {
     @apply hidden;
 }
 .header-about {
-  border-bottom: 1px solid #80716A;
+    border-bottom: 1px solid #80716a;
 }
-footer p, footer a{
-    @apply !text-sm md:!text-base text-[var(--text-primary)];
+footer p,
+footer a {
+    @apply !text-sm text-[var(--text-primary)] md:!text-base;
 }
-footer h2{
-    @apply text-lg md:text-xl text-[var(--text-primary)] mt-0 mb-2;
+footer h2 {
+    @apply mt-0 mb-2 text-lg text-[var(--text-primary)] md:text-xl;
 }
-footer a{
-    @apply shadow-none rounded-none p-0;
+footer a {
+    @apply rounded-none p-0 shadow-none;
 }
-footer .footer-icon svg{
-    @apply block w-5 h-5 mr-2 md:w-6 md:h-6;
+footer a.footer-icon {
+    display: inline-flex;
 }
-
+footer .footer-icon svg {
+    @apply mr-2 block h-5 w-5 text-white md:h-6 md:w-6;
+}
+button:disabled {
+    @apply cursor-not-allowed opacity-70;
+}
 @media (max-width: 380px) {
     #hero_section {
         height: 100svh;
@@ -313,7 +350,6 @@ footer .footer-icon svg{
     #hero_section > div:first-child > div.flex {
         margin-bottom: 0 !important;
     }
-    
 }
 
 @media (min-width: 958px) and (max-width: 1320px) and (orientation: portrait) {
@@ -347,7 +383,7 @@ footer .footer-icon svg{
         width: 100%;
         flex-direction: column;
         gap: 1rem;
-        margin-bottom:4rem;
+        margin-bottom: 4rem;
     }
 
     #hero_section > div:first-child > div.flex > a {
@@ -375,7 +411,6 @@ footer .footer-icon svg{
     }
     #about_section > div:nth-child(1) {
         display: none;
-
     }
     #hero_section .icon {
         display: none;
@@ -392,11 +427,11 @@ footer .footer-icon svg{
     }
 
     #hero_section > div:first-child > p {
-        @apply text-lg w-full;
+        @apply w-full text-lg;
     }
 
-    #hero_section > div:first-child > div.flex  {
-        @apply flex flex-col gap-4 w-fit;
+    #hero_section > div:first-child > div.flex {
+        @apply flex w-fit flex-col gap-4;
     }
 
     #hero_section > div:first-child > div.flex > a {
@@ -407,9 +442,8 @@ footer .footer-icon svg{
         margin-top: 2.5rem;
         width: 130% !important;
     }
-    
+
     #about_section > div:nth-child(1) {
         display: none;
     }
-
 }
