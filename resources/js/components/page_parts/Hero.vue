@@ -99,7 +99,7 @@ import { MoveRight } from '@lucide/vue';
             class="hero_mobile_image relative z-10 h-full w-full shrink-0 pt-10"
         >
             <img
-                src="/images/hero/Hero.jpeg"
+                src="/images/hero/Hero.png"
                 alt="Світлана Дармостук, практичний психолог"
                 class="hidden h-full w-full object-cover object-top lg:block"
             />
@@ -109,7 +109,7 @@ import { MoveRight } from '@lucide/vue';
             class="pointer-events-none absolute inset-x-0 top-14 z-0 h-[clamp(18rem,48svh,31rem)] md:h-[clamp(24rem,56svh,34rem)] lg:hidden"
         >
             <img
-                src="/images/hero/Hero.jpeg"
+                src="/images/hero/Hero.png"
                 alt="Світлана Дармостук, практичний психолог"
                 class="h-full w-full object-cover object-top"
             />

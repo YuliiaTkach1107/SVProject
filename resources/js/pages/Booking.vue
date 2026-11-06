@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue';
 import MainLayout from '@/layouts/MainLayout/MainLayout.vue';
-import { Clock, MoveRight, MoveLeft } from '@lucide/vue';
+import BookingBanner from '@/components/booking/BookingBanner.vue';
+import { Clock, MoveLeft, MoveRight } from '@lucide/vue';
 import { Link } from '@inertiajs/vue3';
 
 type ServiceDetail = {
@@ -100,24 +101,13 @@ const servicesData: ServiceDetail[] = [
             'https://cal.com/yuliia-tkachenko-a6atx2/career-guidance-consultation',
     },
 ];
-const hasAgreed = ref(false);
-
 const selectedService = ref<ServiceDetail | null>(null);
-const selectService = (service: ServiceDetail) => {
+const selectService = (service: ServiceDetail): void => {
     selectedService.value = service;
-    hasAgreed.value = false;
 };
-const continueToBooking = () => {
-    const bookingUrl = selectedService.value?.booking_url;
 
-    if (!hasAgreed.value || !bookingUrl) {
-        return;
-    }
-    window.location.href = bookingUrl;
-};
-const resetSelection = () => {
+const resetSelection = (): void => {
     selectedService.value = null;
-    hasAgreed.value = false;
 };
 onMounted(() => {
     window.addEventListener('pageshow', resetSelection);
@@ -190,17 +180,14 @@ onUnmounted(() => {
                                     {{ service.price_note }}
                                 </span>
                             </p>
-                            <a
-                                :href="service.booking_url || '#'"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                :aria-label="`Обрана послуга: ${service.title}`"
-                                @click.prevent="selectService(service)"
+                            <button
                                 type="button"
+                                :aria-label="`Обрана послуга: ${service.title}`"
+                                @click="selectService(service)"
                                 class="booking_button inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-[var(--bg-button-primary)] px-5 py-2 text-sm font-medium text-[var(--text-button-primary)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--border-secondary)]"
                             >
                                 Обрати <MoveRight class="w-4" />
-                            </a>
+                            </button>
                         </div>
                     </li>
                 </ul>
@@ -269,11 +256,9 @@ onUnmounted(() => {
                                 class="rounded-r-xl border-y border-r border-[var(--border-secondary)]/20 px-2 py-3 text-right sm:px-4"
                             >
                                 <a
-                                    :href="service.booking_url || '#'"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    @click.prevent="selectService(service)"
                                     type="button"
+                                    target="_blank"
+                                    @click="selectService(service)"
                                     :aria-label="`Обрана послуга: ${service.title}`"
                                     class="booking_button inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-[var(--bg-button-primary)] px-3 py-2 text-xs font-medium whitespace-nowrap text-[var(--text-button-primary)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--border-secondary)] sm:px-4 sm:text-sm"
                                 >
@@ -299,57 +284,9 @@ onUnmounted(() => {
                 ><MoveLeft />Повернутися до сайту</Link
             >
         </section>
-        <div
-            v-if="selectedService"
-            class="fixed inset-0 z-[100] grid place-items-center bg-black/50 p-4"
-        >
-            <div
-                class="m-auto w-[60%] rounded-3xl border-[0.5px] border-[var(--text-secondary)] bg-white p-6 shadow-lg"
-            >
-                <h2 class="!text-3xl text-[var(--text-primary)]">
-                    Умови роботи
-                </h2>
-                <p class="!text-base">
-                    Консультація триває {{ selectedService?.duration }} та
-                    проходить онлайн . Вартість — {{ selectedService?.price }}.
-                    Оплата здійснюється [порядок оплати]. Якщо потрібно
-                    скасувати або перенести зустріч, будь ласка, повідомте про
-                    це щонайменше за [строк]. Умови оплати в разі скасування:
-                    [умови].
-                </p>
-                <h2 class="!text-3xl text-[var(--text-primary)]">
-                    Інформована згода
-                </h2>
-                <p class="mb-6 !text-base">
-                    Я розумію, що консультація є психологічною послугою, а не
-                    медичною допомогою чи екстреною службою. Я добровільно
-                    погоджуюся на участь у консультації та розумію, що її
-                    результат залежить від багатьох чинників і не може бути
-                    гарантований. Інформація, якою я ділюся під час
-                    консультації, є конфіденційною, крім випадків, передбачених
-                    законодавством або пов’язаних із безпосередньою загрозою
-                    життю чи безпеці.
-                </p>
-                <label class="flex items-center !text-base">
-                    <input
-                        v-model="hasAgreed"
-                        type="checkbox"
-                        name="agreement"
-                        value="yes"
-                        class="mr-4 size-5 cursor-pointer accent-[var(--bg-button-primary)]"
-                    />
-                    Я ознайомився/ознайомилася з умовами роботи та надаю
-                    інформовану згоду на консультацію.
-                </label>
-                <button
-                    type="button"
-                    :disabled="!hasAgreed || !selectedService?.booking_url"
-                    @click="continueToBooking"
-                    class="m-auto mt-4 flex cursor-pointer justify-center rounded-full bg-[var(--bg-button-primary)] px-8 py-3 text-white shadow-sm"
-                >
-                    Підтвердити та продовжити
-                </button>
-            </div>
-        </div>
+        <BookingBanner
+            :service="selectedService"
+            @close="selectedService = null"
+        />
     </MainLayout>
 </template>
