@@ -13,17 +13,40 @@ class ContactFormMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $data;
+    /**
+     * @var array{
+     *     surname: string,
+     *     name: string,
+     *     email: string,
+     *     phone: string,
+     *     message: string,
+     *     viber?: string|null,
+     *     telegram?: string|null,
+     *     whatsapp?: string|null
+     * }
+     */
+    public array $data;
 
     /**
      * Create a new message instance.
+     *
+     * @param  array{
+     *     surname: string,
+     *     name: string,
+     *     email: string,
+     *     phone: string,
+     *     message: string,
+     *     viber?: string|null,
+     *     telegram?: string|null,
+     *     whatsapp?: string|null
+     * }  $data
      */
-    public function __construct($data)
+    public function __construct(array $data)
     {
         $this->data = $data;
     }
 
-    public function build()
+    public function build(): static
     {
         $mail = $this->from(config('mail.from.address'), config('mail.from.name'))
             ->replyTo($this->data['email'], $this->data['name'])

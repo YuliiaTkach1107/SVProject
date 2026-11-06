@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ContactFormMail;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class ContactController extends Controller
 {
-    public function send(Request $request)
+    public function send(Request $request): RedirectResponse
     {
         $data = $request->validate([
             'surname' => 'required|string',
