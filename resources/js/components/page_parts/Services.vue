@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { ChevronDown } from '@lucide/vue';
+import BookingBanner from '@/components/booking/BookingBanner.vue';
 
 type ServiceDetail = {
     id: number;
@@ -114,11 +115,16 @@ const groupedServices = computed<Record<string, ServiceDetail[]>>(() => {
 });
 
 const expandedServiceIds = ref<number[]>([]);
+const selectedService = ref<ServiceDetail | null>(null);
 
 const toggleServiceDetails = (id: number): void => {
     expandedServiceIds.value = expandedServiceIds.value.includes(id)
         ? expandedServiceIds.value.filter((expandedId) => expandedId !== id)
         : [...expandedServiceIds.value, id];
+};
+
+const selectService = (service: ServiceDetail): void => {
+    selectedService.value = service;
 };
 </script>
 
@@ -171,15 +177,15 @@ const toggleServiceDetails = (id: number): void => {
                                     }"
                                 />
                             </button>
-                            <a
-                                :href="details[0].booking_url || '#'"
-                                target="_blank"
-                                rel="noopener noreferrer"
+                            <button
+                                type="button"
+                                :disabled="!details[0].booking_url"
                                 :aria-label="`Записатися на послугу: ${title}`"
+                                @click="selectService(details[0])"
                                 class="inline-flex items-center justify-center !rounded-full !bg-[var(--bg-button-primary)] !px-4 !py-2 !text-sm whitespace-nowrap !text-white"
                             >
                                 Записатись
-                            </a>
+                            </button>
                         </div>
                         <div
                             v-show="expandedServiceIds.includes(details[0].id)"
@@ -275,10 +281,11 @@ const toggleServiceDetails = (id: number): void => {
                                     />
                                 </button>
                                 <a
-                                    :href="detail.booking_url || '#'"
+                                    type="button"
                                     target="_blank"
-                                    rel="noopener noreferrer"
+                                    :disabled="!detail.booking_url"
                                     :aria-label="`Записатися на послугу: ${title}${detail.subtitle ? ', ' + detail.subtitle : ''}`"
+                                    @click="selectService(detail)"
                                     class="inline-flex items-center justify-center !rounded-full !bg-[var(--bg-button-primary)] !px-4 !py-2 !text-sm whitespace-nowrap !text-white"
                                 >
                                     Записатись
@@ -383,11 +390,12 @@ const toggleServiceDetails = (id: number): void => {
 
                                 <td class="w-60 text-center">
                                     <a
-                                        :href="details[0].booking_url || '#'"
+                                        type="button"
                                         target="_blank"
-                                        rel="noopener noreferrer"
+                                        :disabled="!details[0].booking_url"
                                         :aria-label="`Записатися на послугу: ${title}`"
-                                        class="inline-block bg-[var(--bg-button-primary)] text-white"
+                                        @click="selectService(details[0])"
+                                        class="service_button cursor-pointer inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-[var(--bg-button-primary)] !px-6 !py-3 text-sm md:text-base font-medium text-[var(--text-button-primary)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--border-secondary)] sm:px-4 sm:text-sm"
                                     >
                                         Записатись онлайн
                                     </a>
@@ -452,12 +460,12 @@ const toggleServiceDetails = (id: number): void => {
                                         ]"
                                     >
                                         <a
-                                            :href="detail.booking_url || '#'"
+                                            type="button"
+                                            :disabled="!detail.booking_url"
                                             target="_blank"
-                                            rel="noopener noreferrer"
                                             :aria-label="`Записатися на послугу: ${title}${detail.subtitle ? ', ' + detail.subtitle : ''}`"
-                                            class="inline-block bg-[var(--bg-button-primary)] text-white"
-                                        >
+                                            @click="selectService(detail)"
+                                            class="service_button cursor-pointer inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-[var(--bg-button-primary)] px-3 py-2 text-xs font-medium whitespace-nowrap text-[var(--text-button-primary)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--border-secondary)] sm:px-4 sm:text-sm"                                        >
                                             Записатись онлайн
                                         </a>
                                     </td>
@@ -468,5 +476,9 @@ const toggleServiceDetails = (id: number): void => {
                 </div>
             </div>
         </div>
+        <BookingBanner
+            :service="selectedService"
+            @close="selectedService = null"
+        />
     </section>
 </template>

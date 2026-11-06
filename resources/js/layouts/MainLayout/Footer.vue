@@ -39,12 +39,12 @@ const contactDetails: ContactDetailsData[] = [
 
 <template>
     <footer
-        class="relative w-full bg-[var(--bg-footer)] px-6 py-8 sm:px-8 lg:px-15"
+        class="relative w-full bg-[var(--bg-footer)] px-6 py-8 md:px-8 lg:px-15"
     >
         <div
             class="container-details mx-auto grid w-full max-w-[1400px] grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-10"
         >
-            <div class="logo_info flex flex-col items-start gap-4">
+            <div class="logo_info flex flex-col items-start gap-4 pb-4 md:pb-0">
                 <Link
                     href="/"
                     class="logo"
@@ -62,7 +62,7 @@ const contactDetails: ContactDetailsData[] = [
             </div>
 
             <div
-                class="quick_links border-t border-[var(--border-secondary)] pt-6 lg:border-t-0 lg:pt-0"
+                class="quick_links border-t border-white pt-6 lg:border-t-0 lg:pt-0"
             >
                 <nav aria-label="Навігація у футері">
                     <ul class="flex flex-col items-start gap-3">
@@ -92,7 +92,7 @@ const contactDetails: ContactDetailsData[] = [
             </div>
 
             <div
-                class="contact_details flex flex-col gap-6 border-t border-[var(--border-secondary)] pt-6 lg:col-span-1 lg:justify-center lg:border-t-0 lg:pt-0"
+                class="contact_details flex flex-col gap-6 border-t border-white pt-6 lg:col-span-1 lg:justify-center lg:border-t-0 lg:pt-0"
             >
                 <div class="contacts">
                     <h2 class="!text-white">Контакти</h2>

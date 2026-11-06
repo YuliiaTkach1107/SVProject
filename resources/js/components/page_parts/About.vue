@@ -20,10 +20,10 @@
             class="relative z-10 my-auto hidden h-[80%] w-[40vw] shrink-0 overflow-hidden rounded-t-full rounded-b-lg md:block md:h-[70%] md:w-[30vw]"
         >
             <img
-                src="images/about/About.jpeg"
+                src="images/about/About.jpg"
                 alt=""
                 loading="lazy"
-                class="h-full w-full rounded-t-full rounded-b-lg border-1 border-[var(--circle-secondary)] object-cover object-[center_20%] shadow-sm"
+                class="h-full w-full rounded-t-full rounded-b-lg border-1 border-[var(--circle-secondary)] object-cover object-top shadow-sm"
             />
         </div>
         <div class="flex flex-col">

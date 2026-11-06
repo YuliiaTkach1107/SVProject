@@ -29,7 +29,9 @@
     --bg-card-gray: #eae8e6;
     --bg-card-rose: #f7e4e5;
     --bg-card-peach: #fbeae7;
-    --bg-footer: rgb(70, 48, 40);
+    --bg-footer: #463028;
+    --bg-error: #642c2c;
+    --bg-success:#39631d;
 
     /*Decoration*/
     --circle-primary: #f7ded9;
@@ -88,6 +90,7 @@ span,
 a,
 button {
     font-family: var(--font-accent);
+    @apply cursor-pointer;
 }
 @layer base {
     span {
@@ -100,7 +103,7 @@ button {
 span.hero_surname, span.about_title_2{
     @apply text-[var(--text-secondary)];
 } */
-p {
+p, .legal li{
     font-family: var(--font-body);
     font-weight: 200;
     @apply text-base tracking-[0.03em] text-[var(--text-primary)] md:text-lg lg:text-lg;
@@ -115,7 +118,7 @@ p {
     @apply mb-2;
 }
 a {
-    @apply rounded-full px-6 py-3 text-sm tracking-[0.03em] shadow-sm md:text-base lg:text-base;
+    @apply rounded-full px-6 py-3 text-sm tracking-[0.03em] shadow-sm md:text-base lg:text-base cursor-pointer;
 }
 a.menu_link,
 a.logo {
@@ -163,6 +166,9 @@ a.menu-cta-button:hover,
 a.booking_button:hover {
     @apply cursor-pointer;
     background-color: var(--text-secondary);
+}
+#services_section a.banner_link:hover{
+    background-color: transparent;
 }
 
 #hero_section a.hero-button-primary:active,
@@ -298,7 +304,7 @@ textarea::placeholder {
 button[type='submit'] {
     @apply rounded-full bg-[var(--bg-button-primary)] px-4 py-2 tracking-[0.03em] text-[var(--text-button-primary)] shadow-sm;
 }
-.last_menu_link {
+.last_menu_link, .service_button {
     @apply my-auto hidden h-fit items-center !rounded-full bg-[var(--bg-button-primary)] font-(family-name:--font-body) tracking-[0.03em] text-[var(--text-button-primary)] lg:flex;
 }
 .burger_menu_link {
@@ -312,7 +318,7 @@ button[type='submit'] {
 }
 footer p,
 footer a {
-    @apply !text-sm text-[var(--text-primary)] md:!text-base;
+    @apply !text-sm text-[var(--text-primary)] !font-medium md:!text-base;
 }
 footer h2 {
     @apply mt-0 mb-2 text-lg text-[var(--text-primary)] md:text-xl;
@@ -414,6 +420,9 @@ button:disabled {
     }
     #hero_section .icon {
         display: none;
+    }
+    #contact_section .initials{
+        @apply flex flex-col gap-4;
     }
 }
 @media (min-width: 1024px) and (max-width: 1374px) and (orientation: landscape) and (hover: none) and (pointer: coarse) {
