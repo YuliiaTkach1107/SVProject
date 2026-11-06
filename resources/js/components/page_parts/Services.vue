@@ -395,7 +395,7 @@ const selectService = (service: ServiceDetail): void => {
                                         :disabled="!details[0].booking_url"
                                         :aria-label="`Записатися на послугу: ${title}`"
                                         @click="selectService(details[0])"
-                                        class="service_button cursor-pointer inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-[var(--bg-button-primary)] !px-6 !py-3 text-sm md:text-base font-medium text-[var(--text-button-primary)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--border-secondary)] sm:px-4 sm:text-sm"
+                                        class="service_button inline-flex min-h-10 cursor-pointer items-center justify-center gap-2 rounded-full bg-[var(--bg-button-primary)] !px-6 !py-3 text-sm font-medium text-[var(--text-button-primary)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--border-secondary)] sm:px-4 sm:text-sm md:text-base"
                                     >
                                         Записатись онлайн
                                     </a>
@@ -465,7 +465,8 @@ const selectService = (service: ServiceDetail): void => {
                                             target="_blank"
                                             :aria-label="`Записатися на послугу: ${title}${detail.subtitle ? ', ' + detail.subtitle : ''}`"
                                             @click="selectService(detail)"
-                                            class="service_button cursor-pointer inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-[var(--bg-button-primary)] px-3 py-2 text-xs font-medium whitespace-nowrap text-[var(--text-button-primary)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--border-secondary)] sm:px-4 sm:text-sm"                                        >
+                                            class="service_button inline-flex min-h-10 cursor-pointer items-center justify-center gap-2 rounded-full bg-[var(--bg-button-primary)] px-3 py-2 text-xs font-medium whitespace-nowrap text-[var(--text-button-primary)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--border-secondary)] sm:px-4 sm:text-sm"
+                                        >
                                             Записатись онлайн
                                         </a>
                                     </td>

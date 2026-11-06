@@ -31,7 +31,7 @@
     --bg-card-peach: #fbeae7;
     --bg-footer: #463028;
     --bg-error: #642c2c;
-    --bg-success:#39631d;
+    --bg-success: #39631d;
 
     /*Decoration*/
     --circle-primary: #f7ded9;
@@ -103,7 +103,8 @@ button {
 span.hero_surname, span.about_title_2{
     @apply text-[var(--text-secondary)];
 } */
-p, .legal li{
+p,
+.legal li {
     font-family: var(--font-body);
     font-weight: 200;
     @apply text-base tracking-[0.03em] text-[var(--text-primary)] md:text-lg lg:text-lg;
@@ -118,7 +119,7 @@ p, .legal li{
     @apply mb-2;
 }
 a {
-    @apply rounded-full px-6 py-3 text-sm tracking-[0.03em] shadow-sm md:text-base lg:text-base cursor-pointer;
+    @apply cursor-pointer rounded-full px-6 py-3 text-sm tracking-[0.03em] shadow-sm md:text-base lg:text-base;
 }
 a.menu_link,
 a.logo {
@@ -167,7 +168,7 @@ a.booking_button:hover {
     @apply cursor-pointer;
     background-color: var(--text-secondary);
 }
-#services_section a.banner_link:hover{
+#services_section a.banner_link:hover {
     background-color: transparent;
 }
 
@@ -304,7 +305,8 @@ textarea::placeholder {
 button[type='submit'] {
     @apply rounded-full bg-[var(--bg-button-primary)] px-4 py-2 tracking-[0.03em] text-[var(--text-button-primary)] shadow-sm;
 }
-.last_menu_link, .service_button {
+.last_menu_link,
+.service_button {
     @apply my-auto hidden h-fit items-center !rounded-full bg-[var(--bg-button-primary)] font-(family-name:--font-body) tracking-[0.03em] text-[var(--text-button-primary)] lg:flex;
 }
 .burger_menu_link {
@@ -318,7 +320,7 @@ button[type='submit'] {
 }
 footer p,
 footer a {
-    @apply !text-sm text-[var(--text-primary)] !font-medium md:!text-base;
+    @apply !text-sm !font-medium text-[var(--text-primary)] md:!text-base;
 }
 footer h2 {
     @apply mt-0 mb-2 text-lg text-[var(--text-primary)] md:text-xl;
@@ -421,7 +423,7 @@ button:disabled {
     #hero_section .icon {
         display: none;
     }
-    #contact_section .initials{
+    #contact_section .initials {
         @apply flex flex-col gap-4;
     }
 }

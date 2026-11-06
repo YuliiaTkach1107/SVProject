@@ -28,7 +28,6 @@ const contactDetails: ContactDetailsData[] = [
         url: 'https://t.me/svitlanadar_psychology',
     },
 ];
-
 </script>
 <template>
     <section

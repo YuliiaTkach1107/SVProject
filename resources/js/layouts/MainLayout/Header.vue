@@ -86,7 +86,7 @@ onUnmounted(() => {
                         alt="Логотип сайту"
                         class="w-30 py-2 md:w-36 lg:w-36"
                     />
-            </a>
+                </a>
             </div>
             <!-- Navigation -->
             <nav aria-label="Головне меню сайту">
