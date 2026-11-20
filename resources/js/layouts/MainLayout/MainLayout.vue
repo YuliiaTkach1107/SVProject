@@ -1,6 +1,9 @@
 <script setup>
 import Header from './Header.vue';
 import Footer from './Footer.vue';
+import { usePage } from '@inertiajs/vue3';
+
+const page = usePage();
 </script>
 <template>
     <div>
@@ -8,6 +11,6 @@ import Footer from './Footer.vue';
         <main>
             <slot />
         </main>
-        <Footer />
+        <Footer :contact-details="page.props.contactDetails" />
     </div>
 </template>

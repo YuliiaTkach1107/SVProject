@@ -1,7 +1,7 @@
 <script setup>
 import { useForm, usePage } from '@inertiajs/vue3';
 import { route } from 'ziggy-js';
-import { computed, ref, watch, onMounted } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 const page = usePage();
 const data = useForm({
@@ -56,14 +56,7 @@ watch(
     },
     { immediate: true },
 );
-onMounted(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const subjectParam = urlParams.get('subject');
 
-    if (subjectParam) {
-        data.subject = subjectParam;
-    }
-});
 </script>
 <template>
     <transition name="fade">
@@ -103,6 +96,7 @@ onMounted(() => {
                         v-model="data.surname"
                         type="text"
                         placeholder="Таранович"
+                        maxlength="100"
                         required
                     />
                     <span
@@ -125,6 +119,7 @@ onMounted(() => {
                         v-model="data.name"
                         type="text"
                         placeholder="Марія"
+                        maxlength="100"
                         required
                     />
                     <span
@@ -148,6 +143,7 @@ onMounted(() => {
                     v-model="data.phone"
                     type="tel"
                     placeholder="+38 000 000 00 00 "
+                    maxlength="30"
                     required
                 />
                 <span
@@ -175,6 +171,7 @@ onMounted(() => {
                             v-model="data.viber"
                             type="text"
                             placeholder="+380 00 000 00 00"
+                            maxlength="100"
                             :aria-invalid="
                                 Boolean(
                                     data.errors.viber ||
@@ -194,6 +191,7 @@ onMounted(() => {
                             v-model="data.telegram"
                             type="text"
                             placeholder="@username або номер телефону"
+                            maxlength="100"
                             :aria-invalid="
                                 Boolean(
                                     data.errors.telegram ||
@@ -213,6 +211,7 @@ onMounted(() => {
                             v-model="data.whatsapp"
                             type="text"
                             placeholder="+380 00 000 00 00"
+                            maxlength="100"
                             :aria-invalid="
                                 Boolean(
                                     data.errors.whatsapp ||
@@ -255,6 +254,7 @@ onMounted(() => {
                     v-model="data.email"
                     type="email"
                     placeholder="example@gmail.com "
+                    maxlength="254"
                     required
                 />
                 <span
@@ -278,6 +278,7 @@ onMounted(() => {
                     v-model="data.message"
                     rows="5"
                     placeholder="Кілька слів про ваш запит ..."
+                    maxlength="5000"
                     required
                 ></textarea>
                 <span

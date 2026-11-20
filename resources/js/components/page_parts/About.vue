@@ -42,7 +42,7 @@
                     class="relative z-10 my-auto ml-auto block h-[80%] w-[30vw] shrink-0 overflow-hidden rounded-t-full rounded-b-lg md:hidden"
                 >
                     <img
-                        src="images/about/About.jpeg"
+                        src="images/about/About.jpg"
                         alt=""
                         loading="lazy"
                         class="h-full w-full rounded-t-full rounded-b-lg border-1 border-[var(--circle-secondary)] object-cover object-[center_20%] shadow-sm"

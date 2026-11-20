@@ -14,6 +14,9 @@ void createInertiaApp({
             case name === 'Welcome' ||
                 name === 'HomePage' ||
                 name === 'Booking' ||
+                name === 'Free' ||
+                name === 'Paid' ||
+                name === 'Practice' ||
                 name === 'Legal/InformedConsent':
                 return null;
             case name.startsWith('auth/'):

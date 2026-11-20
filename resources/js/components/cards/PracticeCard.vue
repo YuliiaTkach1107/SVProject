@@ -1,4 +1,6 @@
 <script setup>
+import { Link } from '@inertiajs/vue3';
+
 defineProps({
     card: {
         type: Object,
@@ -13,8 +15,8 @@ defineProps({
 const colors = ['pink', 'gray', 'rose', 'peach'];
 </script>
 <template>
-    <a
-        href="#"
+    <Link
+        :href="`/practice/${card.id}?from=home`"
         class="practice-card"
         :class="`practice-card--${colors[index % colors.length]}`"
     >
@@ -28,12 +30,17 @@ const colors = ['pink', 'gray', 'rose', 'peach'];
         <p v-if="card.duration" class="practice-duration">
             {{ card.duration }}
         </p>
-        <h3 v-if="card.title" class="practice-title mb-2">{{ card.title }}</h3>
+        <h3
+            v-if="card.title"
+            class="practice-title mb-2 line-clamp-2 min-h-[2.4em]"
+        >
+            {{ card.title }}
+        </h3>
         <p
             v-if="card.description"
             class="practice-description line-clamp-2 min-h-[3em]"
         >
             {{ card.description }}
         </p>
-    </a>
+    </Link>
 </template>
