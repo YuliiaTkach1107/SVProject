@@ -1,112 +1,23 @@
-<script setup lang="ts">
+<script setup>
 import { onMounted, onUnmounted, ref } from 'vue';
 import MainLayout from '@/layouts/MainLayout/MainLayout.vue';
 import BookingBanner from '@/components/booking/BookingBanner.vue';
 import { Clock, MoveLeft, MoveRight } from '@lucide/vue';
 import { Link } from '@inertiajs/vue3';
 
-type ServiceDetail = {
-    id: number;
-    title: string;
-    subtitle?: string;
-    duration?: string;
-    summary?: string;
-    description?: string;
-    price?: string;
-    price_note?: string;
-    booking_url?: string;
-};
+const props = defineProps({
+    services: {
+        type: Array,
+        default: () => [],
+    },
+});
 
-const servicesData: ServiceDetail[] = [
-    {
-        id: 1,
-        title: 'Індивідуальна консультація',
-        duration: '60 хв',
-        summary:
-            'Зустріч для обговорення вашого запиту, переживань і ситуацій, які зараз турбують. Разом визначаємо можливий напрям подальшої роботи.',
-        price: '50€',
-        booking_url:
-            'https://cal.com/yuliia-tkachenko-a6atx2/individual-consultation',
-    },
-    {
-        id: 2,
-        title: 'Сімейне консультування',
-        duration: '90 хв',
-        summary:
-            'Простір для спільного обговорення труднощів у стосунках, потреб членів сім’ї та можливих кроків до кращого взаєморозуміння.',
-        price: '75€',
-        booking_url:
-            'https://cal.com/yuliia-tkachenko-a6atx2/family-counseling',
-    },
-    {
-        id: 3,
-        title: 'Арт-терапевтична сесія',
-        duration: '90 хв',
-        summary:
-            'Творчі методи допомагають дослідити переживання та поглянути на запит через образи й асоціації.',
-        price: '60€',
-        booking_url:
-            'https://cal.com/yuliia-tkachenko-a6atx2/art-therapy-session',
-    },
-    {
-        id: 4,
-        title: 'Практика ВВМ',
-        duration: '75 хв',
-        summary:
-            'Сесія з дихальними практиками для стабілізації стану та відновлення контакту з власними відчуттями.',
-        price: '60€',
-        booking_url: 'https://cal.com/yuliia-tkachenko-a6atx2/practice-bbm',
-    },
-    {
-        id: 5,
-        title: 'Фінансово-психологічно тренінг-гра "Psychology of money"',
-        subtitle: 'Індивідуальний формат гри',
-        duration: 'до 2 год',
-        summary:
-            'Тренінг-гра для дослідження власних звичок, переконань і рішень, пов’язаних із грошима.',
-        price: '75€',
-        booking_url:
-            'https://cal.com/yuliia-tkachenko-a6atx2/psychology-of-money-individual',
-    },
-    {
-        id: 6,
-        title: 'Фінансово-психологічно тренінг-гра "Psychology of money"',
-        subtitle: 'Груповий формат гри',
-        duration: 'до 4 год',
-        summary:
-            'Тренінг-гра для дослідження власних звичок, переконань і рішень, пов’язаних із грошима.',
-        price: '50€',
-        price_note: '( з учасника )',
-        booking_url:
-            'https://cal.com/yuliia-tkachenko-a6atx2/psychology-of-money-group',
-    },
-    {
-        id: 7,
-        title: 'Сесія - дослідження особистості ',
-        duration: '90 хв',
-        summary:
-            'Зустріч для дослідження індивідуальних особливостей, цінностей і сильних сторін.',
-        price: '60€',
-        booking_url:
-            'https://cal.com/yuliia-tkachenko-a6atx2/personality-assessment-session',
-    },
-    {
-        id: 8,
-        title: 'Профорієнтаційна консультація - дослідження',
-        duration: '60 хв',
-        summary:
-            'Допомагає дослідити інтереси, схильності та сильні сторони, щоб окреслити професійні напрями для подальшого розгляду.',
-        price: '55€',
-        booking_url:
-            'https://cal.com/yuliia-tkachenko-a6atx2/career-guidance-consultation',
-    },
-];
-const selectedService = ref<ServiceDetail | null>(null);
-const selectService = (service: ServiceDetail): void => {
+const selectedService = ref(null);
+const selectService = (service) => {
     selectedService.value = service;
 };
 
-const resetSelection = (): void => {
+const resetSelection = () => {
     selectedService.value = null;
 };
 onMounted(() => {
@@ -122,69 +33,93 @@ onUnmounted(() => {
     <MainLayout>
         <section
             id="booking_section"
-            class="bg-[var(--bg-menu)] !pt-26 text-center md:!pt-30 lg:!pt-36"
+            class="bg-[var(--bg-menu)] !pt-28 md:!pt-32"
         >
-            <span>ОНЛАЙН-ЗАПИС</span>
-            <h1 class="booking text-[var(--text-primary)]">
-                Оберіть послугу для запису
-            </h1>
-            <p>
-                Оберіть формат консультації, щоб переглянути доступні дати та
-                час.
-            </p>
+            <div class="mx-auto max-w-6xl">
+                <Link
+                    href="/"
+                    class="mb-10 inline-flex items-center gap-2 !px-0 !py-0 text-[var(--text-secondary)] !shadow-none"
+                >
+                    <MoveLeft aria-hidden="true" class="size-4" />
+                    На головну
+                </Link>
 
-            <div class="mx-auto mt-8 max-w-4xl text-left">
+                <header class="mx-auto mb-10 max-w-3xl text-center md:mb-14">
+                    <span
+                        class="inline-block rounded-full bg-white/70 px-4 py-2 !text-sm !text-[var(--text-secondary)]"
+                    >
+                        ОНЛАЙН-ЗАПИС
+                    </span>
+                    <h1 class="booking mt-4 text-[var(--text-primary)]">
+                        Оберіть послугу для запису
+                    </h1>
+                    <p>
+                        Оберіть формат консультації, щоб переглянути доступні
+                        дати та час.
+                    </p>
+                </header>
+
                 <ul
-                    class="grid gap-3 md:hidden"
+                    class="mx-auto max-w-5xl divide-y divide-[var(--border-secondary)]/30 overflow-hidden rounded-2xl border border-[var(--border-secondary)]/30 bg-white/70 px-5 md:px-8"
                     aria-label="Послуги для онлайн-запису"
                 >
                     <li
-                        v-for="service in servicesData"
+                        v-for="service in props.services"
                         :key="service.id"
-                        class="rounded-2xl border border-[var(--border-secondary)]/20 bg-white/70 p-4 shadow-sm transition-colors"
+                        class="flex flex-col gap-4 py-5 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:py-6"
                     >
-                        <div class="text-left">
-                            <h2
-                                class="m-0 text-lg font-medium text-[var(--text-primary)]"
+                        <div class="flex min-w-0 items-start gap-4">
+                            <span
+                                class="mt-1 flex size-10 shrink-0 items-center justify-center rounded-full bg-[var(--bg-card-rose)] font-medium text-[var(--text-primary)]"
+                                aria-hidden="true"
                             >
-                                {{ service.title }}
-                            </h2>
-                            <p
-                                v-if="service.subtitle"
-                                class="mt-1 text-sm text-[var(--text-secondary)]"
-                            >
-                                {{ service.subtitle }}
-                            </p>
-                            <p
-                                v-if="service.duration"
-                                class="mt-2 text-sm text-[var(--text-secondary)]"
-                            >
-                                Тривалість: {{ service.duration }}
-                            </p>
+                                {{ String(service.id).padStart(2, '0') }}
+                            </span>
+                            <div class="min-w-0">
+                                <span
+                                    v-if="service.duration"
+                                    class="mb-2 inline-flex items-center gap-2 rounded-full bg-[var(--bg-card-pink)] px-3 py-1 !text-sm text-[var(--text-secondary)]"
+                                >
+                                    <Clock aria-hidden="true" class="size-4" />
+                                    {{ service.duration }}
+                                </span>
+                                <h2
+                                    class="!m-0 !text-xl font-medium text-[var(--text-primary)] md:!text-2xl"
+                                >
+                                    {{ service.title }}
+                                </h2>
+                                <p
+                                    v-if="service.subtitle"
+                                    class="mt-1 !mb-0 text-sm text-[var(--text-secondary)]"
+                                >
+                                    {{ service.subtitle }}
+                                </p>
+                            </div>
                         </div>
 
                         <div
-                            class="mt-4 flex items-center justify-between gap-3 border-t border-[var(--border-secondary)]/20 pt-3"
+                            class="flex shrink-0 items-center justify-between gap-10 pl-14 sm:justify-end sm:pl-0"
                         >
                             <p
                                 class="min-w-0 text-left font-medium text-[var(--text-primary)]"
                             >
                                 <span
-                                    class="block text-lg !text-[var(--text-primary)]"
-                                    >{{ service.price }}</span
+                                    class="block !text-xl font-medium !text-[var(--text-primary)]"
+                                    >{{ service.price }}€</span
                                 >
                                 <span
                                     v-if="service.price_note"
-                                    class="block text-xs font-normal text-[var(--text-primary)]"
+                                    class="block !text-sm font-normal !text-[var(--text-secondary)]"
                                 >
                                     {{ service.price_note }}
                                 </span>
                             </p>
                             <button
                                 type="button"
+                                :disabled="!service.booking_url"
                                 :aria-label="`Обрана послуга: ${service.title}`"
                                 @click="selectService(service)"
-                                class="booking_button inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-[var(--bg-button-primary)] px-5 py-2 text-sm font-medium text-[var(--text-button-primary)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--border-secondary)]"
+                                class="booking_button inline-flex min-h-10 shrink-0 items-center justify-center gap-2 rounded-full bg-[var(--bg-button-primary)] px-4 py-2 text-sm font-medium text-[var(--text-button-primary)] transition-all duration-300 hover:bg-[var(--bg-button-hover)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--border-secondary)] active:scale-[.98] disabled:cursor-not-allowed disabled:opacity-50"
                             >
                                 Обрати <MoveRight class="w-4" />
                             </button>
@@ -192,97 +127,19 @@ onUnmounted(() => {
                     </li>
                 </ul>
 
-                <table
-                    class="hidden w-full border-separate border-spacing-y-3 md:table"
+                <div
+                    class="mx-auto mt-8 flex max-w-5xl items-start gap-3 rounded-xl bg-[var(--bg-card-pink)] px-5 py-4"
                 >
-                    <caption class="sr-only">
-                        Послуги, доступні для онлайн-запису
-                    </caption>
-                    <thead class="sr-only">
-                        <tr>
-                            <th scope="col">Послуга та тривалість</th>
-                            <th scope="col">Вартість</th>
-                            <th scope="col">Вибір послуги</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr
-                            v-for="service in servicesData"
-                            :key="service.id"
-                            class="bg-white/70"
-                        >
-                            <th
-                                scope="row"
-                                class="rounded-l-xl border-y border-l border-[var(--border-secondary)]/20 px-4 py-3 text-left font-normal sm:px-5"
-                            >
-                                <span
-                                    class="block text-base font-medium text-[var(--text-primary)] md:text-lg"
-                                >
-                                    {{ service.title }}
-                                </span>
-                                <span
-                                    v-if="service.subtitle"
-                                    class="mt-1 block text-sm text-[var(--text-secondary)] md:text-sm"
-                                >
-                                    {{ service.subtitle }}
-                                </span>
-                                <div class="flex items-center gap-2">
-                                    <span v-if="service.duration"
-                                        ><Clock class="w-4"
-                                    /></span>
-                                    <span
-                                        v-if="service.duration"
-                                        class="block text-sm text-[var(--text-secondary)]"
-                                    >
-                                        {{ service.duration }}
-                                    </span>
-                                </div>
-                            </th>
-                            <td
-                                class="w-28 border-y border-[var(--border-secondary)]/20 px-2 py-3 text-center text-sm font-medium text-[var(--text-primary)] sm:w-36 sm:px-4"
-                            >
-                                <span
-                                    class="!text-lg text-[var(--text-primary)]"
-                                    >{{ service.price }}</span
-                                >
-                                <span
-                                    v-if="service.price_note"
-                                    class="mt-1 block text-xs text-[12px] font-normal !text-[var(--text-primary)]"
-                                >
-                                    {{ service.price_note }}
-                                </span>
-                            </td>
-                            <td
-                                class="rounded-r-xl border-y border-r border-[var(--border-secondary)]/20 px-2 py-3 text-right sm:px-4"
-                            >
-                                <a
-                                    type="button"
-                                    target="_blank"
-                                    @click="selectService(service)"
-                                    :aria-label="`Обрана послуга: ${service.title}`"
-                                    class="booking_button inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-[var(--bg-button-primary)] px-3 py-2 text-xs font-medium whitespace-nowrap text-[var(--text-button-primary)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--border-secondary)] sm:px-4 sm:text-sm"
-                                >
-                                    Обрати <MoveRight class="w-4" />
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <Clock
+                        aria-hidden="true"
+                        class="mt-1 size-5 shrink-0 text-[var(--text-secondary)]"
+                    />
+                    <p class="!mb-0 text-left">
+                        Після вибору послуги ви зможете обрати зручні дату та
+                        час.
+                    </p>
+                </div>
             </div>
-            <div class="my-4 flex justify-center gap-4">
-                <Clock class="text-[var(--text-secondary)]" />
-                <p>
-                    Після вибору послуги ви зможете обрати зручні дату та час.
-                </p>
-            </div>
-            <div
-                class="mt-6 block h-[0.5px] w-full rounded-full bg-[var(--bg-button-primary)]"
-            ></div>
-            <Link
-                href="/"
-                class="mt-4 flex justify-center gap-4 text-[var(--text-primary)] !shadow-none md:justify-start"
-                ><MoveLeft />Повернутися до сайту</Link
-            >
         </section>
         <BookingBanner
             :service="selectedService"

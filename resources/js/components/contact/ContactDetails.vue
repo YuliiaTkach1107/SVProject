@@ -1,12 +1,10 @@
-<script setup lang="ts">
-defineProps<{
+<script setup>
+defineProps({
     detail: {
-        id: number;
-        icon: string;
-        contact_detail: string;
-        url: string;
-    };
-}>();
+        type: Object,
+        required: true,
+    },
+});
 </script>
 
 <template>

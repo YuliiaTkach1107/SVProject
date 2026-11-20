@@ -1,28 +1,22 @@
-<script setup lang="ts">
+<script setup>
 import { onUnmounted, ref, watch } from 'vue';
 import { Link } from '@inertiajs/vue3';
 import { MoveRight, X } from '@lucide/vue';
 
-type BookingService = {
-    id: number;
-    title: string;
-    duration?: string;
-    price?: string;
-    booking_url?: string;
-};
+const props = defineProps({
+    service: {
+        type: Object,
+        default: null,
+    },
+});
 
-const props = defineProps<{
-    service: BookingService | null;
-}>();
+const emit = defineEmits(['close']);
 
-const emit = defineEmits<{
-    close: [];
-}>();
 
 const hasAgreed = ref(false);
 const isSubmitting = ref(false);
 const submissionError = ref('');
-let previousBodyOverflow: string | null = null;
+let previousBodyOverflow = null;
 
 watch(
     () => props.service !== null,
@@ -43,13 +37,13 @@ onUnmounted(() => {
     }
 });
 
-const closeBanner = (): void => {
+const closeBanner = () => {
     hasAgreed.value = false;
     submissionError.value = '';
     emit('close');
 };
 
-const continueToBooking = async (): Promise<void> => {
+const continueToBooking = async () => {
     const service = props.service;
 
     if (!hasAgreed.value || !service?.booking_url || isSubmitting.value) {
@@ -61,7 +55,7 @@ const continueToBooking = async (): Promise<void> => {
 
     try {
         const csrfToken = document
-            .querySelector<HTMLMetaElement>('meta[name="csrf-token"]')
+            .querySelector('meta[name="csrf-token"]')
             ?.getAttribute('content');
 
         if (!csrfToken) {
@@ -131,10 +125,10 @@ const continueToBooking = async (): Promise<void> => {
             <p class="!text-base">
                 Послуга: {{ service.title }}. Консультація триває
                 {{ service.duration }} та проходить онлайн. Вартість —
-                {{ service.price }}. Оплата здійснюється [порядок оплати]. Якщо
-                потрібно скасувати або перенести зустріч, будь ласка, повідомте
-                про це щонайменше за [строк]. Умови оплати в разі скасування:
-                [умови].
+                {{ service.price }} €. Після запису вам буде надіслано посилання
+                на оплату. Оплатити потрібно протягом 48 годин після отримання
+                посилання. Зустріч підтверджується після оплати; якщо оплата не
+                надійде вчасно, запис буде скасовано.
             </p>
 
             <h2 class="!mb-2 !text-3xl text-[var(--text-primary)]">
@@ -146,7 +140,6 @@ const continueToBooking = async (): Promise<void> => {
                 class="banner_link mb-4 flex flex-row items-center justify-center gap-4 !text-base text-[var(--text-primary)] underline !shadow-none md:justify-start"
             >
                 Ознайомитися з текстом інформованої згоди
-                <MoveRight aria-hidden="true" class="size-4" />
             </Link>
 
             <label class="!mb-6 flex items-start !text-base">

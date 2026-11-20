@@ -6,6 +6,22 @@ import ServicesSection from '@/components/page_parts/Services.vue';
 import PracticesSection from '@/components/page_parts/Practices.vue';
 import ContactSection from '@/components/page_parts/Contact.vue';
 import { Head } from '@inertiajs/vue3';
+
+const props = defineProps({
+    services: {
+        type: Array,
+        default: () => [],
+    },
+    contactDetails: {
+        type: Array,
+        default: () => [],
+    },
+    practices: {
+        type: Array,
+        default: () => [],
+    },
+});
+
 </script>
 <template>
     <Head>
@@ -30,8 +46,8 @@ import { Head } from '@inertiajs/vue3';
     <MainLayout>
         <HeroSection />
         <AboutSection />
-        <ServicesSection />
-        <PracticesSection />
-        <ContactSection />
+        <ServicesSection :services="props.services" />
+        <PracticesSection :practices="props.practices" />
+        <ContactSection :contact-details="props.contactDetails" />
     </MainLayout>
 </template>

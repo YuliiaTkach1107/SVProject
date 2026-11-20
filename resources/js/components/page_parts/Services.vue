@@ -1,129 +1,38 @@
-<script setup lang="ts">
+<script setup >
 import { computed, ref } from 'vue';
 import { ChevronDown } from '@lucide/vue';
 import BookingBanner from '@/components/booking/BookingBanner.vue';
 
-type ServiceDetail = {
-    id: number;
-    title: string;
-    subtitle?: string;
-    duration?: string;
-    summary?: string;
-    description?: string;
-    price?: string;
-    price_note?: string;
-    booking_url?: string;
-};
+const props = defineProps({
+    services: {
+        type: Array,
+        default: () => [],
+    },
+});
 
-const servicesData: ServiceDetail[] = [
-    {
-        id: 1,
-        title: 'Індивідуальна консультація',
-        duration: '60 хв',
-        summary:
-            'Зустріч для обговорення вашого запиту, переживань і ситуацій, які зараз турбують. Разом визначаємо можливий напрям подальшої роботи.',
-        price: '50€',
-        booking_url:
-            'https://cal.com/yuliia-tkachenko-a6atx2/individual-consultation',
-    },
-    {
-        id: 2,
-        title: 'Сімейне консультування',
-        duration: '90 хв',
-        summary:
-            'Простір для спільного обговорення труднощів у стосунках, потреб членів сім’ї та можливих кроків до кращого взаєморозуміння.',
-        price: '75€',
-        booking_url:
-            'https://cal.com/yuliia-tkachenko-a6atx2/family-counseling',
-    },
-    {
-        id: 3,
-        title: 'Арт-терапевтична сесія',
-        duration: '90 хв',
-        summary:
-            'Творчі методи допомагають дослідити переживання та поглянути на запит через образи й асоціації.',
-        price: '60€',
-        booking_url:
-            'https://cal.com/yuliia-tkachenko-a6atx2/art-therapy-session',
-    },
-    {
-        id: 4,
-        title: 'Практика ВВМ',
-        duration: '75 хв',
-        summary:
-            'Сесія з дихальними практиками для стабілізації стану та відновлення контакту з власними відчуттями.',
-        price: '60€',
-        booking_url: 'https://cal.com/yuliia-tkachenko-a6atx2/practice-bbm',
-    },
-    {
-        id: 5,
-        title: 'Фінансово-психологічно тренінг-гра "Psychology of money"',
-        subtitle: 'Індивідуальний формат гри',
-        duration: 'до 2 год',
-        summary:
-            'Тренінг-гра для дослідження власних звичок, переконань і рішень, пов’язаних із грошима.',
-        price: '75€',
-        booking_url:
-            'https://cal.com/yuliia-tkachenko-a6atx2/psychology-of-money-individual',
-    },
-    {
-        id: 6,
-        title: 'Фінансово-психологічно тренінг-гра "Psychology of money"',
-        subtitle: 'Груповий формат гри',
-        duration: 'до 4 год',
-        summary:
-            'Тренінг-гра для дослідження власних звичок, переконань і рішень, пов’язаних із грошима.',
-        price: '50€',
-        price_note: '( з учасника )',
-        booking_url:
-            'https://cal.com/yuliia-tkachenko-a6atx2/psychology-of-money-group',
-    },
-    {
-        id: 7,
-        title: 'Сесія - дослідження особистості ',
-        duration: '90 хв',
-        summary:
-            'Зустріч для дослідження індивідуальних особливостей, цінностей і сильних сторін.',
-        price: '60€',
-        booking_url:
-            'https://cal.com/yuliia-tkachenko-a6atx2/personality-assessment-session',
-    },
-    {
-        id: 8,
-        title: 'Профорієнтаційна консультація - дослідження',
-        duration: '60 хв',
-        summary:
-            'Допомагає дослідити інтереси, схильності та сильні сторони, щоб окреслити професійні напрями для подальшого розгляду.',
-        price: '55€',
-        booking_url:
-            'https://cal.com/yuliia-tkachenko-a6atx2/career-guidance-consultation',
-    },
-];
+const groupedServices = computed(() => {
+    const result = {};
 
-const groupedServices = computed<Record<string, ServiceDetail[]>>(() => {
-    const result: Record<string, ServiceDetail[]> = {};
-
-    servicesData.forEach((detail) => {
-        if (!result[detail.title]) {
-            result[detail.title] = [];
+    props.services.forEach((service) => {
+        if (!result[service.title]) {
+            result[service.title] = [];
         }
 
-        result[detail.title].push(detail);
+        result[service.title].push(service);
     });
 
     return result;
 });
+const expandedServiceIds = ref([]);
+const selectedService = ref(null);
 
-const expandedServiceIds = ref<number[]>([]);
-const selectedService = ref<ServiceDetail | null>(null);
-
-const toggleServiceDetails = (id: number): void => {
+const toggleServiceDetails = (id) => {
     expandedServiceIds.value = expandedServiceIds.value.includes(id)
         ? expandedServiceIds.value.filter((expandedId) => expandedId !== id)
         : [...expandedServiceIds.value, id];
 };
 
-const selectService = (service: ServiceDetail): void => {
+const selectService = (service) => {
     selectedService.value = service;
 };
 </script>
@@ -132,7 +41,7 @@ const selectService = (service: ServiceDetail): void => {
     <section
         id="services_section"
         aria-labelledby="services-heading"
-        class="align-center relative min-h-screen bg-[var(--bg-primary)]/30 py-15"
+        class="align-center relative min-h-screen bg-[var(--bg-menu)] py-15"
     >
         <div class="flex flex-col">
             <span>ПОСЛУГИ</span>
@@ -150,10 +59,62 @@ const selectService = (service: ServiceDetail): void => {
                         class="md:hidden"
                     >
                         <h3>{{ title }}</h3>
-                        <div class="mt-4 flex items-center justify-around">
+
+                       <Transition name="service-expand">
+                            <div
+                                v-show="expandedServiceIds.includes(details[0].id)"
+                                :id="`service-details-mobile-${details[0].id}`"
+                                class="service-expand"
+                            >
+                                <div class="min-h-0 overflow-hidden">
+                                    <div class="mt-3 space-y-3 rounded-md bg-white/60 p-4">
+                                        <p
+                                            v-if="details[0].summary"
+                                            class="service-summary"
+                                        >
+                                            {{ details[0].summary }}
+                                        </p>
+
+                                        <p
+                                            v-if="details[0].description"
+                                            class="text-sm text-[var(--text-secondary)]"
+                                        >
+                                            {{ details[0].description }}
+                                        </p>
+
+                                        <dl
+                                            class="grid grid-cols-2 gap-y-2 border-t border-[var(--border-primary)]/20 pt-3 text-sm"
+                                        >
+                                            <template v-if="details[0].duration">
+                                                <dt class="text-[var(--text-secondary)]">
+                                                    Тривалість
+                                                </dt>
+                                                <dd class="text-right text-[var(--text-primary)]">
+                                                    {{ details[0].duration }}
+                                                </dd>
+                                            </template>
+
+                                            <template v-if="details[0].price">
+                                                <dt class="text-[var(--text-secondary)]">
+                                                    Вартість
+                                                </dt>
+                                                <dd class="text-right font-medium text-[var(--text-primary)]">
+                                                    {{ details[0].price }}
+                                                    €
+                                                    <span v-if="details[0].price_note">
+                                                        {{ details[0].price_note }}
+                                                    </span>
+                                                </dd>
+                                            </template>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        </Transition>
+                        <div class="mt-4 flex flex-col items-stretch gap-3">
                             <button
                                 type="button"
-                                class="inline-flex items-center gap-1.5 rounded-full border border-[var(--border-secondary)]/50 px-3 py-2 text-sm font-medium text-[var(--text-secondary)] transition-colors hover:bg-[var(--bg-menu)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--border-secondary)]"
+                                class="inline-flex !w-full items-center justify-center gap-1.5 rounded-full border border-[var(--border-secondary)]/50 px-3 py-2 text-sm font-medium text-[var(--text-secondary)] transition-colors hover:bg-[var(--bg-menu)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--border-secondary)]"
                                 :aria-label="`${expandedServiceIds.includes(details[0].id) ? 'Згорнути деталі' : 'Показати деталі'}: ${title}`"
                                 :aria-expanded="
                                     expandedServiceIds.includes(details[0].id)
@@ -182,55 +143,10 @@ const selectService = (service: ServiceDetail): void => {
                                 :disabled="!details[0].booking_url"
                                 :aria-label="`Записатися на послугу: ${title}`"
                                 @click="selectService(details[0])"
-                                class="inline-flex items-center justify-center !rounded-full !bg-[var(--bg-button-primary)] !px-4 !py-2 !text-sm whitespace-nowrap !text-white"
+                                class="inline-flex !w-full items-center justify-center !rounded-full !bg-[var(--bg-button-primary)] !px-4 !py-2 !text-sm whitespace-nowrap !text-white disabled:cursor-not-allowed disabled:opacity-50"
                             >
                                 Записатись
                             </button>
-                        </div>
-                        <div
-                            v-show="expandedServiceIds.includes(details[0].id)"
-                            :id="`service-details-mobile-${details[0].id}`"
-                            class="mt-3 space-y-3 rounded-md bg-white/60 p-4"
-                        >
-                            <p
-                                v-if="details[0].summary"
-                                class="service-summary"
-                            >
-                                {{ details[0].summary }}
-                            </p>
-                            <p
-                                v-if="details[0].description"
-                                class="text-sm text-[var(--text-secondary)]"
-                            >
-                                {{ details[0].description }}
-                            </p>
-                            <dl
-                                class="grid grid-cols-2 gap-y-2 border-t border-[var(--border-primary)]/20 pt-3 text-sm"
-                            >
-                                <template v-if="details[0].duration">
-                                    <dt class="text-[var(--text-secondary)]">
-                                        Тривалість
-                                    </dt>
-                                    <dd
-                                        class="text-right text-[var(--text-primary)]"
-                                    >
-                                        {{ details[0].duration }}
-                                    </dd>
-                                </template>
-                                <template v-if="details[0].price">
-                                    <dt class="text-[var(--text-secondary)]">
-                                        Вартість
-                                    </dt>
-                                    <dd
-                                        class="text-right font-medium text-[var(--text-primary)]"
-                                    >
-                                        {{ details[0].price }}
-                                        <span v-if="details[0].price_note">{{
-                                            details[0].price_note
-                                        }}</span>
-                                    </dd>
-                                </template>
-                            </dl>
                         </div>
                     </div>
 
@@ -247,24 +163,72 @@ const selectService = (service: ServiceDetail): void => {
                             <h4 v-if="detail.subtitle">
                                 {{ detail.subtitle }}
                             </h4>
+                            <Transition name="service-expand">
+                                <div
+                                    v-show="expandedServiceIds.includes(detail.id)"
+                                    :id="`service-details-mobile-${detail.id}`"
+                                    class="service-expand"
+                                >
+                                    <div class="min-h-0 overflow-hidden">
+                                        <div class="mt-3 space-y-3 rounded-md bg-white/60 p-4">
+                                            <p
+                                                v-if="detail.summary"
+                                                class="service-summary"
+                                            >
+                                                {{ detail.summary }}
+                                            </p>
+
+                                            <p
+                                                v-if="detail.description"
+                                                class="text-sm text-[var(--text-secondary)]"
+                                            >
+                                                {{ detail.description }}
+                                            </p>
+
+                                            <dl
+                                                class="grid grid-cols-2 gap-y-2 border-t border-[var(--border-primary)]/20 pt-3 text-sm"
+                                            >
+                                                <template v-if="detail.duration">
+                                                    <dt class="text-[var(--text-secondary)]">
+                                                        Тривалість
+                                                    </dt>
+                                                    <dd class="text-right text-[var(--text-primary)]">
+                                                        {{ detail.duration }}
+                                                    </dd>
+                                                </template>
+
+                                                <template v-if="detail.price">
+                                                    <dt class="text-[var(--text-secondary)]">
+                                                        Вартість
+                                                    </dt>
+                                                    <dd class="text-right font-medium text-[var(--text-primary)]">
+                                                        {{ detail.price }} €
+                                                        <span v-if="detail.price_note">
+                                                            {{ detail.price_note }}
+                                                        </span>
+                                                    </dd>
+                                                </template>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Transition>
                             <div
-                                class="mt-4 flex items-center justify-between gap-3"
+                                class="mt-4 flex flex-col gap-3"
                             >
                                 <button
                                     type="button"
-                                    class="inline-flex items-center gap-1.5 rounded-full border border-[var(--border-secondary)]/50 px-3 py-2 text-sm font-medium text-[var(--text-secondary)] transition-colors hover:bg-[var(--bg-menu)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--border-secondary)]"
-                                    :aria-label="`${expandedServiceIds.includes(details[0].id) ? 'Згорнути деталі' : 'Показати деталі'}: ${title}`"
+                                    class="inline-flex !w-full items-center justify-center gap-1.5 rounded-full border border-[var(--border-secondary)]/50 px-3 py-2 text-sm font-medium text-[var(--text-secondary)] transition-colors hover:bg-[var(--bg-menu)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--border-secondary)]"
+                                    :aria-label="`${expandedServiceIds.includes(detail.id) ? 'Згорнути деталі' : 'Показати деталі'}: ${title}${detail.subtitle ? ', ' + detail.subtitle : ''}`"
                                     :aria-expanded="
-                                        expandedServiceIds.includes(
-                                            details[0].id,
-                                        )
+                                        expandedServiceIds.includes(detail.id)
                                     "
-                                    :aria-controls="`service-details-mobile-${details[0].id}`"
-                                    @click="toggleServiceDetails(details[0].id)"
+                                    :aria-controls="`service-details-mobile-${detail.id}`"
+                                    @click="toggleServiceDetails(detail.id)"
                                 >
                                     {{
                                         expandedServiceIds.includes(
-                                            details[0].id,
+                                            detail.id,
                                         )
                                             ? 'Згорнути'
                                             : 'Детальніше'
@@ -275,70 +239,20 @@ const selectService = (service: ServiceDetail): void => {
                                         :class="{
                                             'rotate-180':
                                                 expandedServiceIds.includes(
-                                                    details[0].id,
+                                                    detail.id,
                                                 ),
                                         }"
                                     />
                                 </button>
-                                <a
+                                <button
                                     type="button"
-                                    target="_blank"
                                     :disabled="!detail.booking_url"
                                     :aria-label="`Записатися на послугу: ${title}${detail.subtitle ? ', ' + detail.subtitle : ''}`"
                                     @click="selectService(detail)"
-                                    class="inline-flex items-center justify-center !rounded-full !bg-[var(--bg-button-primary)] !px-4 !py-2 !text-sm whitespace-nowrap !text-white"
+                                    class="inline-flex !w-full items-center justify-center !rounded-full !bg-[var(--bg-button-primary)] !px-4 !py-2 !text-sm whitespace-nowrap !text-white disabled:cursor-not-allowed disabled:opacity-50"
                                 >
                                     Записатись
-                                </a>
-                            </div>
-                            <div
-                                v-show="expandedServiceIds.includes(detail.id)"
-                                :id="`service-details-mobile-${detail.id}`"
-                                class="mt-3 space-y-3 rounded-md bg-white/60 p-4"
-                            >
-                                <p
-                                    v-if="detail.summary"
-                                    class="service-summary"
-                                >
-                                    {{ detail.summary }}
-                                </p>
-                                <p
-                                    v-if="detail.description"
-                                    class="text-sm text-[var(--text-secondary)]"
-                                >
-                                    {{ detail.description }}
-                                </p>
-                                <dl
-                                    class="grid grid-cols-2 gap-y-2 border-t border-[var(--border-primary)]/20 pt-3 text-sm"
-                                >
-                                    <template v-if="detail.duration">
-                                        <dt
-                                            class="text-[var(--text-secondary)]"
-                                        >
-                                            Тривалість
-                                        </dt>
-                                        <dd
-                                            class="text-right text-[var(--text-primary)]"
-                                        >
-                                            {{ detail.duration }}
-                                        </dd>
-                                    </template>
-                                    <template v-if="detail.price">
-                                        <dt
-                                            class="text-[var(--text-secondary)]"
-                                        >
-                                            Вартість
-                                        </dt>
-                                        <dd
-                                            class="text-right font-medium text-[var(--text-primary)]"
-                                        >
-                                            {{ detail.price }}
-                                            <span v-if="detail.price_note">{{
-                                                detail.price_note
-                                            }}</span>
-                                        </dd>
-                                    </template>
-                                </dl>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -382,6 +296,7 @@ const selectService = (service: ServiceDetail): void => {
                                         class="!font-medium"
                                     >
                                         {{ details[0].price }}
+                                        €
                                     </p>
                                     <p v-if="details[0].price_note">
                                         {{ details[0].price_note }}
@@ -389,16 +304,15 @@ const selectService = (service: ServiceDetail): void => {
                                 </td>
 
                                 <td class="w-60 text-center">
-                                    <a
+                                    <button
                                         type="button"
-                                        target="_blank"
                                         :disabled="!details[0].booking_url"
                                         :aria-label="`Записатися на послугу: ${title}`"
                                         @click="selectService(details[0])"
-                                        class="service_button inline-flex min-h-10 cursor-pointer items-center justify-center gap-2 rounded-full bg-[var(--bg-button-primary)] !px-6 !py-3 text-sm font-medium text-[var(--text-button-primary)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--border-secondary)] sm:px-4 sm:text-sm md:text-base"
+                                        class="service_button inline-flex min-h-10 cursor-pointer items-center justify-center gap-2 rounded-full bg-[var(--bg-button-primary)] !px-6 py-3 text-sm font-medium whitespace-nowrap text-[var(--text-button-primary)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--border-secondary)] sm:px-4 sm:text-sm md:text-base disabled:cursor-not-allowed disabled:opacity-50"
                                     >
                                         Записатись онлайн
-                                    </a>
+                                    </button>
                                 </td>
                             </tr>
 
@@ -447,6 +361,7 @@ const selectService = (service: ServiceDetail): void => {
                                             class="!font-medium"
                                         >
                                             {{ detail.price }}
+                                            €
                                         </p>
                                         <p v-if="detail.price_note">
                                             {{ detail.price_note }}
@@ -459,16 +374,15 @@ const selectService = (service: ServiceDetail): void => {
                                             index > 0 && 'pt-3',
                                         ]"
                                     >
-                                        <a
+                                        <button
                                             type="button"
                                             :disabled="!detail.booking_url"
-                                            target="_blank"
                                             :aria-label="`Записатися на послугу: ${title}${detail.subtitle ? ', ' + detail.subtitle : ''}`"
                                             @click="selectService(detail)"
-                                            class="service_button inline-flex min-h-10 cursor-pointer items-center justify-center gap-2 rounded-full bg-[var(--bg-button-primary)] px-3 py-2 text-xs font-medium whitespace-nowrap text-[var(--text-button-primary)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--border-secondary)] sm:px-4 sm:text-sm"
+                                            class="service_button inline-flex min-h-10 cursor-pointer items-center justify-center gap-2 rounded-full bg-[var(--bg-button-primary)] !px-6 py-3 text-sm font-medium whitespace-nowrap text-[var(--text-button-primary)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--border-secondary)] sm:px-4 sm:text-sm md:text-base  disabled:cursor-not-allowed disabled:opacity-50"
                                         >
                                             Записатись онлайн
-                                        </a>
+                                        </button>
                                     </td>
                                 </tr>
                             </template>

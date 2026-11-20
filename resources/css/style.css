@@ -13,38 +13,40 @@
     /* Colors */
 
     /*Text*/
-    --text-primary: #463028;
-    --text-secondary: #6b5d56;
+    --text-primary: #4a343a;
+    --text-secondary: #765f65;
     --text-button-primary: #ffffff;
-    --text-button-secondary: #80716a;
+    --text-button-secondary: #8a5e68;
 
     /*Backgrounds*/
-    --bg-primary: #f7ded9;
-    --bg-secondary: rgba(160, 143, 135, 0.1);
-    --bg-menu: #f7f1ef;
+    --bg-primary: #e2d5d5;
+    --bg-secondary: rgba(217, 170, 179, 0.12);
+    --bg-menu: #fff5f8;
     --bg-basic: #ffffff;
-    --bg-button-primary: #80716a;
-    --bg-button-secondary: #ffffff;
-    --bg-card-pink: #faeeed;
-    --bg-card-gray: #eae8e6;
-    --bg-card-rose: #f7e4e5;
-    --bg-card-peach: #fbeae7;
-    --bg-footer: #463028;
+    --bg-button-primary: #9b6673;
+    --bg-button-hover: #895663;
+    --bg-button-active: #784b57;
+    --bg-button-secondary: rgb(255, 255, 255, 0.5);
+    --bg-card-pink: #fceff1;
+    --bg-card-gray: #f3ecee;
+    --bg-card-rose: #f4e1e5;
+    --bg-card-peach: #fbebeb;
+    --bg-footer: #49343a;
     --bg-error: #642c2c;
     --bg-success: #39631d;
 
     /*Decoration*/
-    --circle-primary: #f7ded9;
-    --circle-secondary: #e4aaa9;
-    --circle-tertiary: #a08f87;
-    --circle-quaternary: #f7ded9;
+    --circle-primary: #fceff1;
+    --circle-secondary: #d9aab3;
+    --circle-tertiary: #b98c96;
+    --circle-quaternary: #f8e9ec;
 
     /*Borders*/
-    --border-primary: #463028;
-    --border-secondary: #6b5d56;
+    --border-primary: #9b6673;
+    --border-secondary: #b98c96;
 
     /*Cards*/
-    --icon-color: #a08f86;
+    --icon-color: #b98c96;
 }
 
 html,
@@ -120,6 +122,20 @@ p,
 }
 a {
     @apply cursor-pointer rounded-full px-6 py-3 text-sm tracking-[0.03em] shadow-sm md:text-base lg:text-base;
+    transition:
+        color 250ms ease,
+        background-color 250ms ease,
+        border-color 250ms ease,
+        box-shadow 250ms ease,
+        transform 250ms ease;
+}
+button {
+    transition:
+        color 250ms ease,
+        background-color 250ms ease,
+        border-color 250ms ease,
+        box-shadow 250ms ease,
+        transform 250ms ease;
 }
 a.menu_link,
 a.logo {
@@ -131,8 +147,7 @@ a.logo {
 #services_section a {
     display: inline-flex;
 }
-a.menu_link,
-a.footer_link {
+a.menu_link {
     @apply cursor-pointer text-base tracking-[0.03em] transition-all duration-200 ease-in-out hover:border-b-[1px] hover:border-b-[var(--border-secondary)] hover:pb-1;
 }
 a.menu_link {
@@ -140,7 +155,9 @@ a.menu_link {
 }
 a.footer_link {
     font-family: var(--font-body);
-    @apply font-light text-white transition-all duration-200 ease-in-out hover:border-b-[1px] hover:border-b-white hover:pb-1;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 4px;
+    @apply font-light text-white transition-all duration-200 ease-in-out hover:border-b-white;
 }
 a.menu_link.is_current {
     @apply border-b-[1px] border-b-[var(--border-secondary)] pb-1;
@@ -162,26 +179,35 @@ a.booking_button {
 }
 
 #hero_section a.hero-button-primary:hover,
+#practices_section a.practice-button-primary:hover,
 #services_section a:hover,
 a.menu-cta-button:hover,
-a.booking_button:hover {
+a.booking_button:hover,
+.contact-form button:hover {
     @apply cursor-pointer;
-    background-color: var(--text-secondary);
+    background-color: var(--bg-button-hover);
 }
 #services_section a.banner_link:hover {
     background-color: transparent;
 }
 
 #hero_section a.hero-button-primary:active,
+#practices_section a.practice-button-primary:active,
 #services_section a:active,
 a.menu-cta-button:active {
-    background-color: var(--text-primary);
+    background-color: var(--bg-button-active);
     transform: scale(0.98);
 }
 
 #hero_section a.hero-button-secondary:hover {
     background-color: var(--bg-button-secondary);
-    border-color: var(--text-secondary);
+    border-color: var(--bg-button-hover);
+}
+#practices_section a.practice-button-secondary {
+    transition: box-shadow 200ms ease;
+}
+#practices_section a.practice-button-secondary:hover{
+    @apply cursor-pointer shadow-lg;
 }
 
 #hero_section a.hero-button-secondary:active {
@@ -197,18 +223,39 @@ textarea:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    #hero_section a.hero-button,
-    a.menu-cta-button {
+    a,
+    button {
         transition: none;
     }
 }
 
-.practice-card {
-    @apply h-full w-full;
+#practices_section {
+    overflow-x: clip;
+}
+
+.mySwiper.swiper {
+    overflow: visible;
 }
 
 .practice-card {
-    @apply rounded-lg bg-[var(--card-background)] p-6 shadow-md;
+    @apply w-full rounded-lg bg-[var(--card-background)] p-6 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+    display: flex;
+    flex-direction: column;
+    height: 17rem;
+    position: relative;
+    z-index: 0;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    color: inherit;
+    font-size: inherit;
+    letter-spacing: normal;
+    text-decoration: none;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+.practice-card:hover {
+    z-index: 1;
+    transform: scale(1.03);
 }
 
 .practice-card--pink {
@@ -237,10 +284,41 @@ p.practice-description {
     font-size: 0.95rem;
     line-height: 1.5;
 }
-.practice-card {
+.practice-card:focus-visible {
+    outline: 2px solid var(--text-primary);
+    outline-offset: 3px;
+}
+
+.practice-list-card:focus-visible {
+    outline: 2px solid var(--text-primary);
+    outline-offset: 3px;
+}
+
+.practice-list-card {
     display: block;
+    padding: 1.5rem;
+    border-radius: 1rem;
     color: inherit;
+    font-size: inherit;
+    letter-spacing: normal;
     text-decoration: none;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+    transition:
+        transform 300ms ease,
+        box-shadow 300ms ease;
+}
+
+.practice-list-card:hover {
+    transform: translateY(-0.25rem);
+    box-shadow:
+        0 10px 15px -3px rgb(74 52 58 / 0.1),
+        0 4px 6px -4px rgb(74 52 58 / 0.1);
+}
+
+@media (min-width: 768px) {
+    .practice-list-card {
+        padding: 2rem;
+    }
 }
 
 .mySwiper .swiper-pagination-bullet {
@@ -309,6 +387,29 @@ button[type='submit'] {
 .service_button {
     @apply my-auto hidden h-fit items-center !rounded-full bg-[var(--bg-button-primary)] font-(family-name:--font-body) tracking-[0.03em] text-[var(--text-button-primary)] lg:flex;
 }
+.service-expand {
+    display: grid;
+    grid-template-rows: 1fr;
+}
+
+.service-expand-enter-active,
+.service-expand-leave-active {
+    transition:
+        grid-template-rows 0.3s ease,
+        opacity 0.25s ease;
+}
+
+.service-expand-enter-from,
+.service-expand-leave-to {
+    grid-template-rows: 0fr;
+    opacity: 0;
+}
+
+.service-expand-enter-to,
+.service-expand-leave-from {
+    grid-template-rows: 1fr;
+    opacity: 1;
+}
 .burger_menu_link {
     @apply my-auto flex h-fit items-center justify-center !rounded-full bg-[var(--bg-button-primary)] font-(family-name:--font-body) tracking-[0.03em] text-[var(--text-button-primary)] lg:hidden;
 }
@@ -316,7 +417,7 @@ button[type='submit'] {
     @apply hidden;
 }
 .header-about {
-    border-bottom: 1px solid #80716a;
+    border-bottom: 1px solid var(--border-secondary);
 }
 footer p,
 footer a {
